@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'CustomWidgets/input_text_field_widget.dart';
 import 'CustomWidgets/label_widget.dart';
 
 class SigningPage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _SigningPageState extends State<SigningPage> {
                 SizedBox(height: 18.0),
 
                 /// Text field for Email
-                InputTextFieldWidget(),
+                InputTextFieldWidget(controller: _emailController),
 
                 SizedBox(height: 50.0),
 
@@ -61,62 +62,6 @@ class _SigningPageState extends State<SigningPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class InputTextFieldWidget extends StatelessWidget {
-  const InputTextFieldWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: _emailController,
-      onSaved: (email) {
-        debugPrint(email);
-      },
-      validator: (email) {
-        return null;
-      },
-      // autocorrect: ,
-      // autofillHints: ,
-      // onFieldSubmitted: ,
-      // focusNode: ,
-      autofocus: false,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.emailAddress,
-      style: TextStyle(
-        fontSize: 18.0,
-        color: Colors.black54,
-        fontWeight: FontWeight.w400,
-      ),
-      decoration: InputDecoration(
-        hint: Text('Enter your Email id'),
-        suffixIcon: Icon(Icons.email, size: 20),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(width: 1.5),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.black26),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.red, width: 2.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-          borderSide: BorderSide(color: Colors.red, width: 2.0),
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-        isDense: true,
       ),
     );
   }

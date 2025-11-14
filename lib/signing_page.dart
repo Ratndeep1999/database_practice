@@ -50,7 +50,6 @@ class _SigningPageState extends State<SigningPage> {
 
                 /// Text field for Email
                 InputTextFieldWidget(controller: _emailController),
-
                 SizedBox(height: 50.0),
 
                 /// Password label
@@ -61,6 +60,9 @@ class _SigningPageState extends State<SigningPage> {
                   fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 18.0),
+
+                /// Text field for Password
+                InputTextFieldWidget(controller: _passwordController),
               ],
             ),
           ),

@@ -9,8 +9,11 @@ class SigningPage extends StatefulWidget {
   State<SigningPage> createState() => _SigningPageState();
 }
 
+// form key
 final _formKey = GlobalKey<FormState>();
+// controllers
 final _emailController = TextEditingController();
+final _passwordController = TextEditingController();
 
 class _SigningPageState extends State<SigningPage> {
   @override

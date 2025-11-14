@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'CustomWidgets/label_widget.dart';
+
 class SigningPage extends StatefulWidget {
   const SigningPage({super.key});
 
@@ -11,15 +13,14 @@ class _SigningPageState extends State<SigningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Appbar
       appBar: AppBar(
-        title: Text(
-          "Signing Page",
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
-            letterSpacing: 2.0
-          ),
+        title: LabelWidget(
+          label: "Signing Page",
+          fontSize: 30,
+          fontWeight: FontWeight.w600,
+          fontColor: Colors.black87,
+          letterSpacing: 2.0,
         ),
         centerTitle: true,
         backgroundColor: Colors.orange.shade400,

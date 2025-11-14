@@ -10,6 +10,9 @@ class SigningPage extends StatefulWidget {
 class _SigningPageState extends State<SigningPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: SafeArea(child: Column(children: [])),
+    );
   }
 }

@@ -13,12 +13,15 @@ class SigningPage extends StatefulWidget {
   State<SigningPage> createState() => _SigningPageState();
 }
 
-// form key
+// Form key
 final _formKey = GlobalKey<FormState>();
-// controllers
-final _emailController = TextEditingController();
-final _passwordController = TextEditingController();
-// parameters
+// Controllers
+late final TextEditingController _emailController ;
+late final TextEditingController _passwordController;
+// Focus nodes
+late final FocusNode _emailFocus;
+late final FocusNode _passwordFocus;
+// Parameters
 bool _isPasswordVisible = false;
 String? _email;
 String? _password;

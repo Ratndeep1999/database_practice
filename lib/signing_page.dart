@@ -43,6 +43,8 @@ class _SigningPageState extends State<SigningPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 120.0),
+
                 /// Email label
                 LabelWidget(
                   label: 'Email Address',
@@ -95,8 +97,7 @@ class _SigningPageState extends State<SigningPage> {
                   },
                   validation: _passwordValidation,
                 ),
-
-                SizedBox(height: 50.0),
+                SizedBox(height: 80.0),
 
                 /// Login Button
                 SizedBox(

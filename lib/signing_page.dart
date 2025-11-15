@@ -41,13 +41,25 @@ class _SigningPageState extends State<SigningPage> {
   }
 
   // Method to initialize Controller
-  void initController(){
+  void _initController(){
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
   }
 
   // Method to dispose Controller
-  void disposeController(){
+  void _disposeController(){
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  // Method to initialize FocusNodes
+  void _initFocusNodes(){
+    _emailFocus = FocusNode();
+    _passwordFocus = FocusNode();
+  }
+
+  // Method to dispose FocusNodes
+  void _disposeFocusNodes(){
     _emailController.dispose();
     _passwordController.dispose();
   }

@@ -1,4 +1,5 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
+import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
 import 'package:database_practice/signup_page.dart';
 import 'package:database_practice/users_list.dart';
 import 'package:flutter/material.dart';
@@ -108,20 +109,10 @@ class _SigningPageState extends State<SigningPage> {
                   Row(
                     children: [
                       /// SignUp Text
-                      InkWell(
-                        onTap: () => _navigateToSignupPage(),
-                        child: Text('Create Account',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black45,
-                          ),
-                        ),
-                      ),
-
+                      ClickableTextWidget(click: _navigateToSignupPage, label: 'Create Account'),
                       Spacer(),
-
-
+                      /// SignUp Text
+                      ClickableTextWidget(click: _navigateToSignupPage, label: 'Forget Password'),
                     ],
                   ),
                 ],

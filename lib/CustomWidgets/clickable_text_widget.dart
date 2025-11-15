@@ -17,7 +17,7 @@ class ClickableTextWidget extends StatelessWidget {
       child: Text(
         label,
         style: TextStyle(
-          fontSize: 18.0,
+          fontSize: 16.0,
           fontWeight: FontWeight.w500,
           color: Colors.black45,
         ),

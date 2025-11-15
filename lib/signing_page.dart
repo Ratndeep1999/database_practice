@@ -54,7 +54,7 @@ class _SigningPageState extends State<SigningPage> {
                 InputTextFieldWidget(
                   controller: _emailController,
                   suffixIcon: Icons.email,
-                  isSuffixIcon: true,
+                  isSuffixIcon: true, obscureText: false,
                 ),
                 SizedBox(height: 50.0),
 
@@ -74,7 +74,11 @@ class _SigningPageState extends State<SigningPage> {
                       ? Icons.visibility
                       : Icons.visibility_off,
                   isSuffixIcon: true,
-                  suffixTap: () {},
+                  suffixTap: () {
+                    _isPasswordVisible = !_isPasswordVisible;
+                    setState(() {});
+                  },
+                  obscureText: !_isPasswordVisible,
                 ),
               ],
             ),

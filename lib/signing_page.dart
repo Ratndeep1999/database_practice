@@ -24,6 +24,19 @@ String? _email;
 String? _password;
 
 class _SigningPageState extends State<SigningPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +113,7 @@ class _SigningPageState extends State<SigningPage> {
                     },
                     validation: _passwordValidation,
                   ),
-                  SizedBox(height: 80.0),
+                  SizedBox(height: 60.0),
 
                   /// Login Button
                   ButtonWidget(label: "Login", buttonPress: _loginPress, icon: Icons.login,),
@@ -109,7 +122,7 @@ class _SigningPageState extends State<SigningPage> {
                   Row(
                     children: [
                       /// SignUp Text
-                      ClickableTextWidget(click: _navigateToSignupPage, label: 'Create Account'),
+                      ClickableTextWidget(click: _navigateToForgetPasswordPage, label: 'Create Account'),
                       Spacer(),
                       /// SignUp Text
                       ClickableTextWidget(click: _navigateToSignupPage, label: 'Forget Password'),
@@ -188,6 +201,11 @@ class _SigningPageState extends State<SigningPage> {
 
   /// Navigate to Signup Page
   void _navigateToSignupPage() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignupPage()));
+  }
+
+  /// Navigate to Forget Password Page
+  void _navigateToForgetPasswordPage() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignupPage()));
   }
 }

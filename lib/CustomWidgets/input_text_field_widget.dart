@@ -8,6 +8,7 @@ class InputTextFieldWidget extends StatelessWidget {
     required this.isSuffixIcon,
     this.suffixTap,
     required this.obscureText,
+    required this.hintLabel,
   });
 
   final TextEditingController controller;
@@ -15,6 +16,7 @@ class InputTextFieldWidget extends StatelessWidget {
   final bool isSuffixIcon;
   final VoidCallback? suffixTap;
   final bool obscureText;
+  final String hintLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class InputTextFieldWidget extends StatelessWidget {
         fontWeight: FontWeight.w400,
       ),
       decoration: InputDecoration(
-        hint: Text('Enter your Email id'),
+        hint: Text(hintLabel),
         suffixIcon: isSuffixIcon
             ? IconButton(onPressed: suffixTap, icon: Icon(suffixIcon, size: 20))
             : null,

@@ -8,7 +8,7 @@ class InputTextFieldWidget extends StatelessWidget {
     required this.isSuffixIcon,
     this.suffixTap,
     required this.obscureText,
-    required this.hintLabel,
+    required this.hintLabel, required this.onSaved,
   });
 
   final TextEditingController controller;
@@ -17,14 +17,13 @@ class InputTextFieldWidget extends StatelessWidget {
   final VoidCallback? suffixTap;
   final bool obscureText;
   final String hintLabel;
+  final FormFieldSetter<String>? onSaved;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      onSaved: (email) {
-        debugPrint(email);
-      },
+      onSaved: onSaved,
       validator: (email) {
         return null;
       },

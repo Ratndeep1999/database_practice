@@ -40,6 +40,18 @@ class _SigningPageState extends State<SigningPage> {
     super.dispose();
   }
 
+  // Method to initialize Controller
+  void initController(){
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
+
+  // Method to dispose Controller
+  void disposeController(){
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

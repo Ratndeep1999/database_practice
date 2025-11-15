@@ -32,6 +32,7 @@ class _SigningPageState extends State<SigningPage> {
   @override
   void initState() {
     super.initState();
+    FocusScope.of(context).unfocus();
     _initController();
     _initFocusNodes();
   }

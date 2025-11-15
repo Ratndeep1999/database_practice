@@ -31,6 +31,16 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              /// Full name label
+              LabelWidget(
+                label: 'Full Name',
+                fontColor: Colors.black,
+                fontSize: 20.0,
+                fontWeight: FontWeight.w400,
+              ),
+              SizedBox(height: 18.0),
+
               /// Email label
               LabelWidget(
                 label: 'Email Address',

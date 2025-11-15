@@ -103,20 +103,27 @@ class _SigningPageState extends State<SigningPage> {
 
                   /// Login Button
                   ButtonWidget(label: "Login", buttonPress: _loginPress, icon: Icons.login,),
-                  SizedBox(height: 50.0),
+                  SizedBox(height: 30.0),
 
-                  /// SignUp Text
-                  Center(
-                    child: InkWell(
-                      onTap: (){_navigateToSignupPage();},
-                      child: LabelWidget(
-                        label: 'Create Account',
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        fontColor: Colors.black45,
+                  Row(
+                    children: [
+                      /// SignUp Text
+                      InkWell(
+                        onTap: () => _navigateToSignupPage(),
+                        child: Text('Create Account',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45,
+                          ),
+                        ),
                       ),
-                    ),
-                  )
+
+                      Spacer(),
+
+
+                    ],
+                  ),
                 ],
               ),
             ),

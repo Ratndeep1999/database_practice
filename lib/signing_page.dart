@@ -86,87 +86,89 @@ class _SigningPageState extends State<SigningPage> {
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 120.0),
-
-                  /// Email label
-                  LabelWidget(
-                    label: 'Email Address',
-                    fontColor: Colors.black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  SizedBox(height: 18.0),
-
-                  /// Text field for Email
-                  InputTextFieldWidget(
-                    hintLabel: 'Enter your Email id',
-                    controller: _emailController,
-                    suffixIcon: Icons.email,
-                    isSuffixIcon: true,
-                    obscureText: false,
-                    onSaved: (email) {
-                      _email = email;
-                    },
-                    validation: _emailValidation,
-                    keyboardType: TextInputType.emailAddress,
-                    autoFillHints: [AutofillHints.email],
-                    nextFocus: null,
-                    focusNode: _emailFocus,
-                  ),
-                  SizedBox(height: 50.0),
-
-                  /// Password label
-                  LabelWidget(
-                    label: 'Password',
-                    fontColor: Colors.black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  SizedBox(height: 18.0),
-
-                  /// Text field for Password
-                  InputTextFieldWidget(
-                    hintLabel: 'Enter your Password',
-                    controller: _passwordController,
-                    suffixIcon: _isPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    isSuffixIcon: true,
-                    suffixTap: () {
-                      _isPasswordVisible = !_isPasswordVisible;
-                      setState(() {});
-                    },
-                    obscureText: !_isPasswordVisible,
-                    onSaved: (password) {
-                      _password = password;
-                    },
-                    validation: _passwordValidation,
-                    keyboardType: TextInputType.visiblePassword,
-                    autoFillHints: [AutofillHints.password],
-                    focusNode: _passwordFocus,
-                    nextFocus: null,
-                  ),
-                  SizedBox(height: 60.0),
-
-                  /// Login Button
-                  ButtonWidget(label: "Login", buttonPress: _loginPress, icon: Icons.login,),
-                  SizedBox(height: 30.0),
-
-                  Row(
-                    children: [
-                      /// SignUp Text
-                      ClickableTextWidget(click: _navigateToForgetPasswordPage, label: 'Create Account'),
-                      Spacer(),
-                      /// SignUp Text
-                      ClickableTextWidget(click: _navigateToSignupPage, label: 'Forget Password'),
-                    ],
-                  ),
-                ],
+            child: AutofillGroup(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 120.0),
+              
+                    /// Email label
+                    LabelWidget(
+                      label: 'Email Address',
+                      fontColor: Colors.black,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    SizedBox(height: 18.0),
+              
+                    /// Text field for Email
+                    InputTextFieldWidget(
+                      hintLabel: 'Enter your Email id',
+                      controller: _emailController,
+                      suffixIcon: Icons.email,
+                      isSuffixIcon: true,
+                      obscureText: false,
+                      onSaved: (email) {
+                        _email = email;
+                      },
+                      validation: _emailValidation,
+                      keyboardType: TextInputType.emailAddress,
+                      autoFillHints: [AutofillHints.email],
+                      nextFocus: null,
+                      focusNode: _emailFocus,
+                    ),
+                    SizedBox(height: 50.0),
+              
+                    /// Password label
+                    LabelWidget(
+                      label: 'Password',
+                      fontColor: Colors.black,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    SizedBox(height: 18.0),
+              
+                    /// Text field for Password
+                    InputTextFieldWidget(
+                      hintLabel: 'Enter your Password',
+                      controller: _passwordController,
+                      suffixIcon: _isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      isSuffixIcon: true,
+                      suffixTap: () {
+                        _isPasswordVisible = !_isPasswordVisible;
+                        setState(() {});
+                      },
+                      obscureText: !_isPasswordVisible,
+                      onSaved: (password) {
+                        _password = password;
+                      },
+                      validation: _passwordValidation,
+                      keyboardType: TextInputType.visiblePassword,
+                      autoFillHints: [AutofillHints.password],
+                      focusNode: _passwordFocus,
+                      nextFocus: null,
+                    ),
+                    SizedBox(height: 60.0),
+              
+                    /// Login Button
+                    ButtonWidget(label: "Login", buttonPress: _loginPress, icon: Icons.login,),
+                    SizedBox(height: 30.0),
+              
+                    Row(
+                      children: [
+                        /// SignUp Text
+                        ClickableTextWidget(click: _navigateToForgetPasswordPage, label: 'Create Account'),
+                        Spacer(),
+                        /// SignUp Text
+                        ClickableTextWidget(click: _navigateToSignupPage, label: 'Forget Password'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -176,7 +176,7 @@ class _SigningPageState extends State<SigningPage> {
 
   /// Scaffold Messenger
   Future<void> _showSnackBar(String label) async {
-    ScaffoldMessenger.of(context).showSnackBar(
+    final controller = ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: LabelWidget(
           label: label,
@@ -188,6 +188,7 @@ class _SigningPageState extends State<SigningPage> {
         duration: Duration(seconds: 3),
       ),
     );
+    await controller.closed;
   }
 
   /// Navigate to UsersList page

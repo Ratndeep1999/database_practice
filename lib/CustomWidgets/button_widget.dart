@@ -22,10 +22,4 @@ class ButtonWidget extends StatelessWidget {
       ),
     );
   }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('buttonPress', buttonPress));
-  }
 }

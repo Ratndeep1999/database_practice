@@ -14,6 +14,8 @@ final _formKey = GlobalKey<FormState>();
 // controllers
 final _emailController = TextEditingController();
 final _passwordController = TextEditingController();
+// parameters
+bool _isPasswordVisible = false;
 
 class _SigningPageState extends State<SigningPage> {
   @override
@@ -49,7 +51,11 @@ class _SigningPageState extends State<SigningPage> {
                 SizedBox(height: 18.0),
 
                 /// Text field for Email
-                InputTextFieldWidget(controller: _emailController),
+                InputTextFieldWidget(
+                  controller: _emailController,
+                  suffixIcon: Icons.email,
+                  isSuffixIcon: true,
+                ),
                 SizedBox(height: 50.0),
 
                 /// Password label
@@ -62,7 +68,14 @@ class _SigningPageState extends State<SigningPage> {
                 SizedBox(height: 18.0),
 
                 /// Text field for Password
-                InputTextFieldWidget(controller: _passwordController),
+                InputTextFieldWidget(
+                  controller: _passwordController,
+                  suffixIcon: _isPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  isSuffixIcon: true,
+                  suffixTap: () {},
+                ),
               ],
             ),
           ),

@@ -101,13 +101,13 @@ class _SigningPageState extends State<SigningPage> {
                 /// Login Button
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: (){
-                      FocusScope.of(context).unfocus();
-                      _formKey.currentState!.validate();
-                    },
-                    child: Text('Login'),
-                  ),
+                  child: ElevatedButton.icon(
+                    onPressed: () { _formKey.currentState!.validate(); },
+                    label: Text('Login'),
+                    icon: Icon(Icons.login),
+                    style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,),
+                  )
                 )
               ],
             ),

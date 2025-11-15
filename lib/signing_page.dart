@@ -1,3 +1,4 @@
+import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/input_text_field_widget.dart';
 import 'CustomWidgets/label_widget.dart';
@@ -99,17 +100,7 @@ class _SigningPageState extends State<SigningPage> {
                   SizedBox(height: 80.0),
 
                   /// Login Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: _loginPress,
-                      label: Text('Login'),
-                      icon: Icon(Icons.login),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
-                      ),
-                    ),
-                  ),
+                  ButtonWidget(label: "Login", buttonPress: _loginPress, icon: Icons.login,),
                 ],
               ),
             ),

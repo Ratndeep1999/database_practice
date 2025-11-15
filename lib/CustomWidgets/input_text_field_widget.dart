@@ -11,6 +11,7 @@ class InputTextFieldWidget extends StatelessWidget {
     required this.hintLabel,
     required this.onSaved,
     this.onChange,
+    required this.validation,
   });
 
   final TextEditingController controller;
@@ -19,8 +20,9 @@ class InputTextFieldWidget extends StatelessWidget {
   final VoidCallback? suffixTap;
   final bool obscureText;
   final String hintLabel;
-  final FormFieldSetter<String>? onSaved;
+  final FormFieldSetter<String> onSaved;
   final ValueChanged<String>? onChange;
+  final FormFieldValidator<String> validation;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +30,7 @@ class InputTextFieldWidget extends StatelessWidget {
       controller: controller,
       onSaved: onSaved,
       onChanged: onChange,
-      validator: (email) {
-        return null;
-      },
+      validator: validation,
       // autocorrect: ,
       // autofillHints: ,
       // onFieldSubmitted: ,

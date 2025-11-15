@@ -8,7 +8,9 @@ class InputTextFieldWidget extends StatelessWidget {
     required this.isSuffixIcon,
     this.suffixTap,
     required this.obscureText,
-    required this.hintLabel, required this.onSaved,
+    required this.hintLabel,
+    required this.onSaved,
+    this.onChange,
   });
 
   final TextEditingController controller;
@@ -18,12 +20,14 @@ class InputTextFieldWidget extends StatelessWidget {
   final bool obscureText;
   final String hintLabel;
   final FormFieldSetter<String>? onSaved;
+  final ValueChanged<String>? onChange;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       onSaved: onSaved,
+      onChanged: onChange,
       validator: (email) {
         return null;
       },
@@ -45,6 +49,8 @@ class InputTextFieldWidget extends StatelessWidget {
         suffixIcon: isSuffixIcon
             ? IconButton(onPressed: suffixTap, icon: Icon(suffixIcon, size: 20))
             : null,
+        isDense: true,
+        // Borders
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
@@ -63,7 +69,6 @@ class InputTextFieldWidget extends StatelessWidget {
           borderSide: BorderSide(color: Colors.red, width: 2.0),
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-        isDense: true,
       ),
     );
   }

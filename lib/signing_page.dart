@@ -112,6 +112,10 @@ class _SigningPageState extends State<SigningPage> {
                       _email = email;
                     },
                     validation: _emailValidation,
+                    keyboardType: TextInputType.emailAddress,
+                    autoFillHints: [AutofillHints.email],
+                    nextFocus: null,
+                    focusNode: _emailFocus,
                   ),
                   SizedBox(height: 50.0),
 
@@ -141,6 +145,10 @@ class _SigningPageState extends State<SigningPage> {
                       _password = password;
                     },
                     validation: _passwordValidation,
+                    keyboardType: TextInputType.visiblePassword,
+                    autoFillHints: [AutofillHints.password],
+                    focusNode: _passwordFocus,
+                    nextFocus: null,
                   ),
                   SizedBox(height: 60.0),
 

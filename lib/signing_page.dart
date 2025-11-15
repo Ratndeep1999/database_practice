@@ -99,6 +99,17 @@ class _SigningPageState extends State<SigningPage> {
                     print(_password);
                   },
                   validation: (String? value) {
+                    String? password = value?.trim();
+                    if (password == null || password.isEmpty) return 'Enter your Password';
+                    if (password.length < 8) return "Password must be at least 8 characters";
+                    // at least one Uppercase char must
+                    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Password must contain at least one uppercase letter";
+                    // at least one Lowercase char must
+                    if (!RegExp(r'[a-z]').hasMatch(password)) return "Password must contain at least one lowercase letter";
+                    // at least one numeric char must
+                    if (!RegExp(r'[0-9]').hasMatch(password)) return "Password must contain at least one number";
+                    // at least one special char must
+                    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Password must contain at least one special character (!@#\$&*~_)";
                     return null;
                   },
                 ),

@@ -35,82 +35,82 @@ class _SigningPageState extends State<SigningPage> {
         centerTitle: true,
         backgroundColor: Colors.orange.shade400,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 120.0),
-
-                /// Email label
-                LabelWidget(
-                  label: 'Email Address',
-                  fontColor: Colors.black,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w400,
-                ),
-                SizedBox(height: 18.0),
-
-                /// Text field for Email
-                InputTextFieldWidget(
-                  hintLabel: 'Enter your Email id',
-                  controller: _emailController,
-                  suffixIcon: Icons.email,
-                  isSuffixIcon: true,
-                  obscureText: false,
-                  onSaved: (email) {
-                    _email = email;
-                    print(_email);
-                  },
-                  validation: _emailValidation,
-                ),
-                SizedBox(height: 50.0),
-
-                /// Password label
-                LabelWidget(
-                  label: 'Password',
-                  fontColor: Colors.black,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w400,
-                ),
-                SizedBox(height: 18.0),
-
-                /// Text field for Password
-                InputTextFieldWidget(
-                  hintLabel: 'Enter your Password',
-                  controller: _passwordController,
-                  suffixIcon: _isPasswordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  isSuffixIcon: true,
-                  suffixTap: () {
-                    _isPasswordVisible = !_isPasswordVisible;
-                    setState(() {});
-                  },
-                  obscureText: !_isPasswordVisible,
-                  onSaved: (password) {
-                    _password = password;
-                    print(_password);
-                  },
-                  validation: _passwordValidation,
-                ),
-                SizedBox(height: 80.0),
-
-                /// Login Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: () { _formKey.currentState!.validate(); },
-                    label: Text('Login'),
-                    icon: Icon(Icons.login),
-                    style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orange,),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 120.0),
+        
+                  /// Email label
+                  LabelWidget(
+                    label: 'Email Address',
+                    fontColor: Colors.black,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  SizedBox(height: 18.0),
+        
+                  /// Text field for Email
+                  InputTextFieldWidget(
+                    hintLabel: 'Enter your Email id',
+                    controller: _emailController,
+                    suffixIcon: Icons.email,
+                    isSuffixIcon: true,
+                    obscureText: false,
+                    onSaved: (email) {
+                      _email = email;
+                    },
+                    validation: _emailValidation,
+                  ),
+                  SizedBox(height: 50.0),
+        
+                  /// Password label
+                  LabelWidget(
+                    label: 'Password',
+                    fontColor: Colors.black,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  SizedBox(height: 18.0),
+        
+                  /// Text field for Password
+                  InputTextFieldWidget(
+                    hintLabel: 'Enter your Password',
+                    controller: _passwordController,
+                    suffixIcon: _isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    isSuffixIcon: true,
+                    suffixTap: () {
+                      _isPasswordVisible = !_isPasswordVisible;
+                      setState(() {});
+                    },
+                    obscureText: !_isPasswordVisible,
+                    onSaved: (password) {
+                      _password = password;
+                    },
+                    validation: _passwordValidation,
+                  ),
+                  SizedBox(height: 80.0),
+        
+                  /// Login Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: _loginPress,
+                      label: Text('Login'),
+                      icon: Icon(Icons.login),
+                      style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,),
+                    )
                   )
-                )
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -141,5 +141,11 @@ class _SigningPageState extends State<SigningPage> {
     if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Password must contain at least one special character (!@#\$&*~_)";
     return null;
   }
-
+  
+  /// Login Button Functionality
+  void _loginPress() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+    }
+  }
 }

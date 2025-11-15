@@ -1,4 +1,5 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
+import 'package:database_practice/users_list.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/input_text_field_widget.dart';
 import 'CustomWidgets/label_widget.dart';
@@ -140,7 +141,10 @@ class _SigningPageState extends State<SigningPage> {
     if (_formKey.currentState!.validate()) {
       // called onSave method of each text field
       _formKey.currentState!.save();
+      // shoe snack bar for 3 sec
       await _showSnackBar('Login Please Wait....');
+      // navigate to next page
+      _navigateToNextPage();
     }
   }
 
@@ -157,6 +161,15 @@ class _SigningPageState extends State<SigningPage> {
         backgroundColor: Colors.orange,
         duration: Duration(seconds: 3),
       ),
+    );
+  }
+
+  /// Navigate to UsersList page
+  void _navigateToNextPage() {
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context)=> UsersList(),
+        ),
     );
   }
 }

@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
   const InputTextFieldWidget({
-    super.key, required this.controller,
+    super.key,
+    required this.controller,
+    required this.suffixIcon,
   });
 
   final TextEditingController controller;
+  final IconData suffixIcon;
+  final bool isSuffixClickable;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +35,10 @@ class InputTextFieldWidget extends StatelessWidget {
       ),
       decoration: InputDecoration(
         hint: Text('Enter your Email id'),
-        suffixIcon: Icon(Icons.email, size: 20),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
+        suffixIcon: isSuffixClickable
+            ? IconButton(onPressed: () {}, icon: Icon(suffixIcon, size: 20))
+            : Icon(suffixIcon, size: 20),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),
           borderSide: BorderSide(width: 1.5),

@@ -52,9 +52,11 @@ class _SigningPageState extends State<SigningPage> {
 
                 /// Text field for Email
                 InputTextFieldWidget(
+                  hintLabel: 'Enter your Email id',
                   controller: _emailController,
                   suffixIcon: Icons.email,
-                  isSuffixIcon: true, obscureText: false,
+                  isSuffixIcon: true,
+                  obscureText: false,
                 ),
                 SizedBox(height: 50.0),
 
@@ -69,6 +71,7 @@ class _SigningPageState extends State<SigningPage> {
 
                 /// Text field for Password
                 InputTextFieldWidget(
+                  hintLabel: 'Enter your Password',
                   controller: _passwordController,
                   suffixIcon: _isPasswordVisible
                       ? Icons.visibility

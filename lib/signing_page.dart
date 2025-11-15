@@ -63,7 +63,12 @@ class _SigningPageState extends State<SigningPage> {
                     _email = email;
                     print(_email);
                   },
-                  validation: (String? value) {},
+                  validation: (String? value) {
+                    String? email = value?.trim().toLowerCase();
+                    if (email == null || email.isEmpty) return 'Please enter Email';
+                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',).hasMatch(email)) return "Email address must contain '@' and '.com'";
+                    return null;
+                  },
                 ),
                 SizedBox(height: 50.0),
 
@@ -93,7 +98,9 @@ class _SigningPageState extends State<SigningPage> {
                     _password = password;
                     print(_password);
                   },
-                  validation: (String? value) {},
+                  validation: (String? value) {
+                    return null;
+                  },
                 ),
               ],
             ),

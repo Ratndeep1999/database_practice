@@ -192,6 +192,7 @@ class _SigningPageState extends State<SigningPage> {
 
   /// Login Button Functionality
   Future<void> _loginPress() async {
+    FocusScope.of(context).unfocus();
     // form validation check
     if (_formKey.currentState!.validate()) {
       // called onSave method of each text field

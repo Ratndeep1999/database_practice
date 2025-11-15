@@ -161,10 +161,10 @@ class _SigningPageState extends State<SigningPage> {
                     Row(
                       children: [
                         /// SignUp Text
-                        ClickableTextWidget(click: _navigateToForgetPasswordPage, label: 'Create Account'),
+                        ClickableTextWidget(click: _navigateToSignupPage, label: 'Create Account'),
                         Spacer(),
-                        /// SignUp Text
-                        ClickableTextWidget(click: _navigateToSignupPage, label: 'Forget Password'),
+                        /// ForgetPassword Text
+                        ClickableTextWidget(click: _navigateToForgetPasswordPage, label: 'Forget Password'),
                       ],
                     ),
                   ],

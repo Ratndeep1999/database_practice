@@ -16,8 +16,8 @@ final _emailController = TextEditingController();
 final _passwordController = TextEditingController();
 // parameters
 bool _isPasswordVisible = false;
-String? email;
-String? password;
+String? _email;
+String? _password;
 
 class _SigningPageState extends State<SigningPage> {
   @override
@@ -59,9 +59,11 @@ class _SigningPageState extends State<SigningPage> {
                   suffixIcon: Icons.email,
                   isSuffixIcon: true,
                   obscureText: false,
-                  onSaved: (String? email) {
-                    print(email);
+                  onSaved: (email) {
+                    _email = email;
+                    print(_email);
                   },
+                  validation: (String? value) {},
                 ),
                 SizedBox(height: 50.0),
 
@@ -87,9 +89,11 @@ class _SigningPageState extends State<SigningPage> {
                     setState(() {});
                   },
                   obscureText: !_isPasswordVisible,
-                  onSaved: (String? password) {
-                    print(password);
+                  onSaved: (password) {
+                    _password = password;
+                    print(_password);
                   },
+                  validation: (String? value) {},
                 ),
               ],
             ),

@@ -4,6 +4,7 @@ class InputTextFieldWidget extends StatelessWidget {
   const InputTextFieldWidget({
     super.key,
     required this.controller,
+    required this.keyboardType,
     this.suffixIcon,
     required this.isSuffixIcon,
     this.suffixTap,
@@ -12,9 +13,13 @@ class InputTextFieldWidget extends StatelessWidget {
     required this.onSaved,
     this.onChange,
     required this.validation,
+    required this.focusNode,
+    this.nextFocus,
+    this.autoFillHints,
   });
 
   final TextEditingController controller;
+  final TextInputType? keyboardType;
   final IconData? suffixIcon;
   final bool isSuffixIcon;
   final VoidCallback? suffixTap;
@@ -23,6 +28,9 @@ class InputTextFieldWidget extends StatelessWidget {
   final FormFieldSetter<String> onSaved;
   final ValueChanged<String>? onChange;
   final FormFieldValidator<String> validation;
+  final FocusNode focusNode;
+  final FocusNode? nextFocus;
+  final List<String>? autoFillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +39,19 @@ class InputTextFieldWidget extends StatelessWidget {
       onSaved: onSaved,
       onChanged: onChange,
       validator: validation,
-      // autocorrect: ,
-      // autofillHints: ,
-      // onFieldSubmitted: ,
-      // focusNode: ,
+      autocorrect: true,
+      enableSuggestions: true,
+      autofillHints: autoFillHints,
+      onFieldSubmitted: (_) {
+        nextFocus != null
+            ? FocusScope.of(context).requestFocus(nextFocus)
+            : FocusScope.of(context).unfocus();
+      },
+      focusNode: focusNode,
       obscureText: obscureText,
       autofocus: false,
       textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: keyboardType,
       style: TextStyle(
         fontSize: 18.0,
         color: Colors.black54,

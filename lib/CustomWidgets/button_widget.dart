@@ -5,9 +5,11 @@ class ButtonWidget extends StatelessWidget {
     super.key,
     required this.label,
     required this.buttonPress,
+    required this.icon,
   });
 
   final String label;
+  final IconData icon;
   final VoidCallback buttonPress;
 
   @override
@@ -17,7 +19,7 @@ class ButtonWidget extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: buttonPress,
         label: Text(label),
-        icon: Icon(Icons.login),
+        icon: Icon(icon),
         style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
       ),
     );

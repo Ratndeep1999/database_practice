@@ -37,7 +37,8 @@ class _SigningPageState extends State<SigningPage> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    _disposeController();
+    _disposeFocusNodes();
     super.dispose();
   }
 

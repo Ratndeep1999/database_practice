@@ -38,7 +38,7 @@ class _SigningPageState extends State<SigningPage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Focus(
+          child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,6 +95,20 @@ class _SigningPageState extends State<SigningPage> {
                   },
                   validation: _passwordValidation,
                 ),
+
+                SizedBox(height: 50.0),
+
+                /// Login Button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: (){
+                      FocusScope.of(context).unfocus();
+                      _formKey.currentState!.validate();
+                    },
+                    child: Text('Login'),
+                  ),
+                )
               ],
             ),
           ),

@@ -45,7 +45,7 @@ class _SigningPageState extends State<SigningPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 120.0),
-        
+
                   /// Email label
                   LabelWidget(
                     label: 'Email Address',
@@ -54,7 +54,7 @@ class _SigningPageState extends State<SigningPage> {
                     fontWeight: FontWeight.w400,
                   ),
                   SizedBox(height: 18.0),
-        
+
                   /// Text field for Email
                   InputTextFieldWidget(
                     hintLabel: 'Enter your Email id',
@@ -68,7 +68,7 @@ class _SigningPageState extends State<SigningPage> {
                     validation: _emailValidation,
                   ),
                   SizedBox(height: 50.0),
-        
+
                   /// Password label
                   LabelWidget(
                     label: 'Password',
@@ -77,7 +77,7 @@ class _SigningPageState extends State<SigningPage> {
                     fontWeight: FontWeight.w400,
                   ),
                   SizedBox(height: 18.0),
-        
+
                   /// Text field for Password
                   InputTextFieldWidget(
                     hintLabel: 'Enter your Password',
@@ -97,7 +97,7 @@ class _SigningPageState extends State<SigningPage> {
                     validation: _passwordValidation,
                   ),
                   SizedBox(height: 80.0),
-        
+
                   /// Login Button
                   SizedBox(
                     width: double.infinity,
@@ -106,9 +106,10 @@ class _SigningPageState extends State<SigningPage> {
                       label: Text('Login'),
                       icon: Icon(Icons.login),
                       style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,),
-                    )
-                  )
+                        backgroundColor: Colors.orange,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -122,7 +123,7 @@ class _SigningPageState extends State<SigningPage> {
   String? _emailValidation(String? value) {
     String? email = value?.trim().toLowerCase();
     if (email == null || email.isEmpty) return 'Please enter Email';
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',).hasMatch(email)) return "Email address must contain '@' and '.com'";
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
     return null;
   }
 
@@ -141,11 +142,30 @@ class _SigningPageState extends State<SigningPage> {
     if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Password must contain at least one special character (!@#\$&*~_)";
     return null;
   }
-  
+
   /// Login Button Functionality
-  void _loginPress() {
+  Future<void> _loginPress() async {
+    // form validation check
     if (_formKey.currentState!.validate()) {
+      // called onSave method of each text field
       _formKey.currentState!.save();
+      await _showSnackBar('Login Please Wait....');
     }
+  }
+
+  /// Scaffold Messenger
+  Future<void> _showSnackBar(String label) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: LabelWidget(
+          label: label,
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          fontColor: Colors.white,
+        ),
+        backgroundColor: Colors.orange,
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 }

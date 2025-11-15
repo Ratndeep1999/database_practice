@@ -4,12 +4,17 @@ class InputTextFieldWidget extends StatelessWidget {
   const InputTextFieldWidget({
     super.key,
     required this.controller,
-    required this.suffixIcon,
+    this.suffixIcon,
+    required this.isSuffixIcon,
+    this.suffixTap,
+    required this.obscureText,
   });
 
   final TextEditingController controller;
-  final IconData suffixIcon;
-  final bool isSuffixClickable;
+  final IconData? suffixIcon;
+  final bool isSuffixIcon;
+  final VoidCallback? suffixTap;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,7 @@ class InputTextFieldWidget extends StatelessWidget {
       // autofillHints: ,
       // onFieldSubmitted: ,
       // focusNode: ,
+      obscureText: obscureText,
       autofocus: false,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
@@ -35,9 +41,9 @@ class InputTextFieldWidget extends StatelessWidget {
       ),
       decoration: InputDecoration(
         hint: Text('Enter your Email id'),
-        suffixIcon: isSuffixClickable
-            ? IconButton(onPressed: () {}, icon: Icon(suffixIcon, size: 20))
-            : Icon(suffixIcon, size: 20),
+        suffixIcon: isSuffixIcon
+            ? IconButton(onPressed: suffixTap, icon: Icon(suffixIcon, size: 20))
+            : null,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.0)),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.0),

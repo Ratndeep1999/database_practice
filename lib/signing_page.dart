@@ -1,4 +1,5 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
+import 'package:database_practice/signup_page.dart';
 import 'package:database_practice/users_list.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/input_text_field_widget.dart';
@@ -102,6 +103,20 @@ class _SigningPageState extends State<SigningPage> {
 
                   /// Login Button
                   ButtonWidget(label: "Login", buttonPress: _loginPress, icon: Icons.login,),
+                  SizedBox(height: 50.0),
+
+                  /// SignUp Text
+                  Center(
+                    child: InkWell(
+                      onTap: (){_navigateToSignupPage();},
+                      child: LabelWidget(
+                        label: 'Create Account',
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500,
+                        fontColor: Colors.black45,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -167,9 +182,14 @@ class _SigningPageState extends State<SigningPage> {
   /// Navigate to UsersList page
   void _navigateToNextPage() {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-            builder: (context)=> UsersList(),
-        ),
+      MaterialPageRoute(
+        builder: (context)=> UsersList(),
+      ),
     );
+  }
+
+  /// Navigate to Signup Page
+  void _navigateToSignupPage() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignupPage()));
   }
 }

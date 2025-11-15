@@ -60,7 +60,7 @@ class _SignupPageState extends State<SignupPage> {
               /// Signup Button
               ButtonWidget(
                 label: 'Create Account',
-                buttonPress: () {},
+                buttonPress: _createAccount,
                 icon: Icons.account_circle,
               ),
             ],
@@ -68,5 +68,9 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
+  }
+
+  /// Create Account Logic
+  void _createAccount() {
   }
 }

@@ -1,5 +1,6 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
+import 'package:database_practice/forget_password.dart';
 import 'package:database_practice/signup_page.dart';
 import 'package:database_practice/users_list.dart';
 import 'package:flutter/material.dart';
@@ -245,6 +246,6 @@ class _SigningPageState extends State<SigningPage> {
 
   /// Navigate to Forget Password Page
   void _navigateToForgetPasswordPage() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignupPage()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ForgetPassword()));
   }
 }

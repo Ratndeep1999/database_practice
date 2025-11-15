@@ -30,8 +30,9 @@ class _SigningPageState extends State<SigningPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _initController();
+    _initFocusNodes();
   }
 
   @override

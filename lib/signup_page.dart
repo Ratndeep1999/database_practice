@@ -1,4 +1,5 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
+import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
 
@@ -63,6 +64,15 @@ class _SignupPageState extends State<SignupPage> {
                 buttonPress: _createAccount,
                 icon: Icons.account_circle,
               ),
+              SizedBox(height: 30.0),
+
+              /// Back to Signing Page
+              Center(
+                child: ClickableTextWidget(
+                  click: () => Navigator.pop(context),
+                  label: 'Back to Login',
+                ),
+              ),
             ],
           ),
         ),
@@ -71,6 +81,5 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   /// Create Account Logic
-  void _createAccount() {
-  }
+  void _createAccount() {}
 }

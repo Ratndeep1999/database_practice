@@ -10,60 +10,59 @@ class SignupPage extends StatefulWidget {
   State<SignupPage> createState() => _SignupPageState();
 }
 
-// Controllers
-late final TextEditingController _nameController;
-late final TextEditingController _emailController;
-late final TextEditingController _passwordController;
-late final TextEditingController _confPasswordController;
-
-// Initialize controllers
-void initControllers(){
-  _nameController = TextEditingController();
-  _emailController = TextEditingController();
-  _passwordController = TextEditingController();
-  _confPasswordController = TextEditingController();
-}
-
-// Dispose controllers
-void disposeControllers(){
-  _nameController.dispose();
-  _emailController.dispose();
-  _passwordController.dispose();
-  _confPasswordController.dispose();
-}
-
-// Focus Nodes
-late final FocusNode _nameNode;
-late final FocusNode _emailNode;
-late final FocusNode _passwordNode;
-late final FocusNode _confPasswordNode;
-
-// Initialize Nodes
-void initFocusNodes(){
-  _nameNode = FocusNode();
-  _emailNode = FocusNode();
-  _passwordNode = FocusNode();
-  _confPasswordNode = FocusNode();
-}
-
-// Dispose Nodes
-void disposeFocusNodes(){
-  _nameNode.dispose();
-  _emailNode.dispose();
-  _passwordNode.dispose();
-  _confPasswordNode.dispose();
-}
-
-// Variables
-String? _name;
-String? _email;
-String? _password;
-String? _confPassword;
-
-// FormKey
-final _formKey = GlobalKey<FormState>();
-
 class _SignupPageState extends State<SignupPage> {
+  // Controllers
+  late final TextEditingController _nameController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
+  late final TextEditingController _confPasswordController;
+
+  // Initialize controllers
+  void initControllers() {
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confPasswordController = TextEditingController();
+  }
+
+  // Dispose controllers
+  void disposeControllers() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confPasswordController.dispose();
+  }
+
+  // Focus Nodes
+  late final FocusNode _nameNode;
+  late final FocusNode _emailNode;
+  late final FocusNode _passwordNode;
+  late final FocusNode _confPasswordNode;
+
+  // Initialize Nodes
+  void initFocusNodes() {
+    _nameNode = FocusNode();
+    _emailNode = FocusNode();
+    _passwordNode = FocusNode();
+    _confPasswordNode = FocusNode();
+  }
+
+  // Dispose Nodes
+  void disposeFocusNodes() {
+    _nameNode.dispose();
+    _emailNode.dispose();
+    _passwordNode.dispose();
+    _confPasswordNode.dispose();
+  }
+
+  // Variables
+  String? _name;
+  String? _email;
+  String? _password;
+  String? _confPassword;
+
+  // FormKey
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -78,7 +77,6 @@ class _SignupPageState extends State<SignupPage> {
     disposeFocusNodes();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +98,6 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               /// Full name label
               LabelWidget(
                 label: 'Full Name',
@@ -109,7 +106,6 @@ class _SignupPageState extends State<SignupPage> {
                 fontWeight: FontWeight.w400,
               ),
               SizedBox(height: 18.0),
-
 
               /// Email label
               LabelWidget(

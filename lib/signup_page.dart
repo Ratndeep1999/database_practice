@@ -264,7 +264,7 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Navigate To Login Screen
   void _navigateToLoginPage(){
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> SigningPage()));
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   /// Check Password and Conf-Password same or Not

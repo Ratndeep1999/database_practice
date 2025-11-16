@@ -26,16 +26,23 @@ class _UsersListState extends State<UsersList> {
       ),
       body: SafeArea(
         child: ListView.builder(
-          padding: EdgeInsets.symmetric(),
+          padding: EdgeInsets.all(16.0),
           itemCount: 100,
           itemBuilder: (_, index) {
-            return ListTile(
-              leading: Text('$index'),
-              title: Text("Index : $index"),
-              subtitle: Text("This is Subtitle"),
-              trailing: Icon(Icons.delete, size: 20.0,),
-              tileColor: Colors.orange.shade100,
-              iconColor: Colors.black45,
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 4),
+              child: ListTile(
+                leading: Text("${index + 1}"),
+                title: Text("Index : $index"),
+                subtitle: Text("This is Subtitle"),
+                trailing: Icon(Icons.delete, size: 20.0),
+                tileColor: Colors.orange.shade100,
+                iconColor: Colors.black45,
+                titleAlignment: ListTileTitleAlignment.center,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
             );
           },
         ),

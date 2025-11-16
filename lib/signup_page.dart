@@ -250,7 +250,7 @@ class _SignupPageState extends State<SignupPage> {
     if (_formKey.currentState!.validate()){
       _formKey.currentState!.save();
       _savedDetails();
-      _navigateToLoginPage()
+      _navigateToLoginPage();
     }
   }
 

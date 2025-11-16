@@ -10,6 +10,8 @@ class UsersList extends StatefulWidget {
 }
 
 class _UsersListState extends State<UsersList> {
+  /// Users List
+  final List<Map<String, dynamic>> usersList = [];
 
   @override
   void initState() {

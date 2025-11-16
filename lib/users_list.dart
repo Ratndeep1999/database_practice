@@ -39,7 +39,13 @@ class _UsersListState extends State<UsersList> {
       ),
       body: SafeArea(
         child: isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: Colors.orange,
+                  strokeWidth: 15.0,
+                  strokeAlign: 10.0,
+                ),
+              )
             : usersList.isEmpty
             ? Center(
                 child: LabelWidget(

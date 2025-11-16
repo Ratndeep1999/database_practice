@@ -1,11 +1,13 @@
+import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
-
   // Singleton pattern
   static final DatabaseService _instance = DatabaseService.internal();
+
   DatabaseService.internal();
-  factory DatabaseService (){
+
+  factory DatabaseService() {
     return _instance;
   }
 
@@ -19,5 +21,22 @@ class DatabaseService {
     return _database!;
   }
 
-  Future<Database?> _createDB() async {}
+  /// Create Database
+  Future<Database?> _createDB() async {
+    // Get Path
+    String getPath = await getDatabasesPath();
+    // Database Name
+    const String dbName = "users.db";
+    // Get path of Database
+    String path = join(getPath, dbName);
+
+    // Method that open database
+    Database openDB = await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) {},
+    );
+    return openDB;
+  }
+
 }

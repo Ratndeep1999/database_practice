@@ -251,6 +251,14 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
+  /// Method to Check Saved Values
+  void savedDetails(){
+    debugPrint('Full Name : $_name');
+    debugPrint('Email : $_email');
+    debugPrint('Password : $_password');
+    debugPrint('Conform Password : $_confPassword');
+  }
+
   /// Check Password and Conf-Password same or Not
   void _onChangedConfPassword(String confPassword) {
     setState(() {

@@ -24,7 +24,22 @@ class _UsersListState extends State<UsersList> {
         centerTitle: true,
         backgroundColor: Colors.orange.shade400,
       ),
-      body: SafeArea(child: Column(children: [],)),
+      body: SafeArea(
+        child: ListView.builder(
+          padding: EdgeInsets.symmetric(),
+          itemCount: 100,
+          itemBuilder: (_, index) {
+            return ListTile(
+              leading: Text('$index'),
+              title: Text("Index : $index"),
+              subtitle: Text("This is Subtitle"),
+              trailing: Icon(Icons.delete, size: 20.0,),
+              tileColor: Colors.orange.shade100,
+              iconColor: Colors.black45,
+            );
+          },
+        ),
+      ),
     );
   }
 }

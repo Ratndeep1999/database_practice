@@ -262,6 +262,9 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Email Validation
   String? _emailValidation(String? value) {
+    String? email = value?.trim().toLowerCase();
+    if (email == null || email.isEmpty) return 'Please Enter Email Address';
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
     return null;
   }
 

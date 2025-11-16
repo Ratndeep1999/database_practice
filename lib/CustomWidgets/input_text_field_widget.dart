@@ -13,7 +13,7 @@ class InputTextFieldWidget extends StatelessWidget {
     required this.hintLabel,
     required this.onSaved,
     this.onChange,
-    required this.validation,
+    this.validation,
     required this.focusNode,
     this.nextFocus,
     this.autoFillHints,

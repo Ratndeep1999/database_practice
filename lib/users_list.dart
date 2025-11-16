@@ -14,6 +14,7 @@ class _UsersListState extends State<UsersList> {
   /// Users List
   List<Map<String, dynamic>> usersList = [];
   late DatabaseService dbService;
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -37,7 +38,9 @@ class _UsersListState extends State<UsersList> {
         backgroundColor: Colors.orange.shade400,
       ),
       body: SafeArea(
-        child: usersList.isEmpty
+        child: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : usersList.isEmpty
             ? Text("No User Found")
             : ListView.builder(
                 padding: EdgeInsets.all(16.0),

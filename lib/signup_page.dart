@@ -106,6 +106,8 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 50.0),
+
                     /// Full name label
                     LabelWidget(
                       label: 'Full Name',
@@ -113,8 +115,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontSize: 20.0,
                       fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 18.0),
-                
+                    SizedBox(height: 10.0),
                     /// Full name Text Field
                     InputTextFieldWidget(
                       controller: _nameController,
@@ -131,6 +132,7 @@ class _SignupPageState extends State<SignupPage> {
                       autoFillHints: [AutofillHints.name],
                       suffixIcon: Icons.verified_user,
                     ),
+                    SizedBox(height: 25.0),
                 
                     /// Email label
                     LabelWidget(
@@ -139,7 +141,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontSize: 20.0,
                       fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 18.0),
+                    SizedBox(height: 10.0),
                 
                     /// Email Address Text Field
                     InputTextFieldWidget(
@@ -157,6 +159,7 @@ class _SignupPageState extends State<SignupPage> {
                       nextFocus: _passwordNode,
                       autoFillHints: [AutofillHints.email],
                     ),
+                    SizedBox(height: 25.0),
                 
                     /// Password label
                     LabelWidget(
@@ -165,8 +168,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontSize: 20.0,
                       fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 18.0),
-                
+                    SizedBox(height: 10.0),
                     /// Password Text Field
                     InputTextFieldWidget(
                       controller: _passwordController,
@@ -188,6 +190,7 @@ class _SignupPageState extends State<SignupPage> {
                       nextFocus: _confPasswordNode,
                       autoFillHints: [AutofillHints.password],
                     ),
+                    SizedBox(height: 25.0),
                 
                     /// Conform Password label
                     LabelWidget(
@@ -196,8 +199,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontSize: 20.0,
                       fontWeight: FontWeight.w400,
                     ),
-                    SizedBox(height: 18.0),
-                
+                    SizedBox(height: 10.0),
                     /// Conform Password Text Field
                     InputTextFieldWidget(
                       controller: _confPasswordController,
@@ -219,6 +221,7 @@ class _SignupPageState extends State<SignupPage> {
                       focusNode: _confPasswordNode,
                       nextFocus: null,
                     ),
+                    SizedBox(height: 50.0),
                 
                     /// Signup Button
                     ButtonWidget(

@@ -1,7 +1,6 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
 import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
-import 'package:database_practice/signing_page.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
 

@@ -2,6 +2,7 @@ import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
 import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
+import 'package:database_practice/users_list.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'CustomWidgets/label_widget.dart';
@@ -120,6 +121,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 10.0),
+
                     /// Full name Text Field
                     InputTextFieldWidget(
                       controller: _nameController,
@@ -137,7 +139,7 @@ class _SignupPageState extends State<SignupPage> {
                       suffixIcon: Icons.verified_user,
                     ),
                     SizedBox(height: 25.0),
-                
+
                     /// Email label
                     LabelWidget(
                       label: 'Email Address',
@@ -146,7 +148,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 10.0),
-                
+
                     /// Email Address Text Field
                     InputTextFieldWidget(
                       controller: _emailController,
@@ -164,7 +166,7 @@ class _SignupPageState extends State<SignupPage> {
                       autoFillHints: [AutofillHints.email],
                     ),
                     SizedBox(height: 25.0),
-                
+
                     /// Password label
                     LabelWidget(
                       label: 'Password',
@@ -173,6 +175,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 10.0),
+
                     /// Password Text Field
                     InputTextFieldWidget(
                       controller: _passwordController,
@@ -195,7 +198,7 @@ class _SignupPageState extends State<SignupPage> {
                       autoFillHints: [AutofillHints.password],
                     ),
                     SizedBox(height: 25.0),
-                
+
                     /// Conform Password label
                     LabelWidget(
                       label: 'Conform password',
@@ -204,6 +207,7 @@ class _SignupPageState extends State<SignupPage> {
                       fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 10.0),
+
                     /// Conform Password Text Field
                     InputTextFieldWidget(
                       controller: _confPasswordController,
@@ -226,7 +230,7 @@ class _SignupPageState extends State<SignupPage> {
                       nextFocus: null,
                     ),
                     SizedBox(height: 50.0),
-                
+
                     /// Signup Button
                     ButtonWidget(
                       label: 'Create Account',
@@ -234,7 +238,7 @@ class _SignupPageState extends State<SignupPage> {
                       icon: Icons.account_circle,
                     ),
                     SizedBox(height: 20.0),
-                
+
                     /// Back to Signing Page
                     Center(
                       child: ClickableTextWidget(
@@ -254,16 +258,17 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Create Account Logic
   void _createAccount() {
-    if (_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _savedDetails();
       // _navigateToLoginPage();
       _saveUserDataToDB();
+      _navigateToHomePage();
     }
   }
 
   /// Method to Check Saved Values
-  void _savedDetails(){
+  void _savedDetails() {
     debugPrint('Full Name : $_name');
     debugPrint('Email : $_email');
     debugPrint('Password : $_password');
@@ -271,7 +276,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   /// Navigate To Login Screen
-  void _navigateToLoginPage(){
+  void _navigateToLoginPage() {
     Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
@@ -322,6 +327,16 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   void _saveUserDataToDB() {
+    dbService.insertUser(
+      emailId: _email,
+      userName: _name,
+      password: _password,
+      conformPassword: _confPassword,
+    );
+  }
 
+  /// Temporary method to Navigate to Home Page 
+  void _navigateToHomePage() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_)=>UsersList()));
   }
 }

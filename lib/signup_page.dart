@@ -60,6 +60,9 @@ String? _email;
 String? _password;
 String? _confPassword;
 
+// FormKey
+final _formKey = GlobalKey<FormState>();
+
 class _SignupPageState extends State<SignupPage> {
 
   @override

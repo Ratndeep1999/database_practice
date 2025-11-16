@@ -61,7 +61,8 @@ class _SignupPageState extends State<SignupPage> {
   String? _email;
   String? _password;
   String? _confPassword;
-  bool isPasswordVisible = true;
+  bool _isPasswordVisible = true;
+  bool _isPassConfPassSame = false;
 
   // FormKey
   final _formKey = GlobalKey<FormState>();
@@ -109,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                   fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 18.0),
-        
+
                 /// Full name Text Field
                 InputTextFieldWidget(
                   controller: _nameController,
@@ -126,7 +127,7 @@ class _SignupPageState extends State<SignupPage> {
                   autoFillHints: [AutofillHints.name],
                   suffixIcon: Icons.verified_user,
                 ),
-        
+
                 /// Email label
                 LabelWidget(
                   label: 'Email Address',
@@ -135,13 +136,13 @@ class _SignupPageState extends State<SignupPage> {
                   fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 18.0),
-        
+
                 /// Email Address Text Field
                 InputTextFieldWidget(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   isSuffixIcon: true,
-                  obscureText: !isPasswordVisible,
+                  obscureText: !_isPasswordVisible,
                   suffixIcon: Icons.email,
                   hintLabel: 'Enter Your Email Address',
                   onSaved: (email) {
@@ -152,7 +153,7 @@ class _SignupPageState extends State<SignupPage> {
                   nextFocus: _passwordNode,
                   autoFillHints: [AutofillHints.email],
                 ),
-        
+
                 /// Password label
                 LabelWidget(
                   label: 'Password',
@@ -161,19 +162,19 @@ class _SignupPageState extends State<SignupPage> {
                   fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 18.0),
-        
+
                 /// Password Text Field
                 InputTextFieldWidget(
                   controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   isSuffixIcon: true,
-                  suffixIcon: isPasswordVisible
+                  suffixIcon: _isPasswordVisible
                       ? Icons.visibility
                       : Icons.visibility_off,
                   suffixTap: () => setState(() {
-                    (isPasswordVisible = !isPasswordVisible);
+                    (_isPasswordVisible = !_isPasswordVisible);
                   }),
-                  obscureText: !isPasswordVisible,
+                  obscureText: !_isPasswordVisible,
                   hintLabel: 'Enter Your Password',
                   onSaved: (password) {
                     _password = password;
@@ -183,8 +184,8 @@ class _SignupPageState extends State<SignupPage> {
                   nextFocus: _confPasswordNode,
                   autoFillHints: [AutofillHints.password],
                 ),
-        
-                /// Email label
+
+                /// Conform Password label
                 LabelWidget(
                   label: 'Conform password',
                   fontColor: Colors.black,
@@ -192,7 +193,29 @@ class _SignupPageState extends State<SignupPage> {
                   fontWeight: FontWeight.w400,
                 ),
                 SizedBox(height: 18.0),
-        
+
+                /// Conform Password Text Field
+                InputTextFieldWidget(
+                  controller: _confPasswordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  isSuffixIcon: true,
+                  suffixIcon: _isPassConfPassSame
+                      ? Icons.check_circle
+                      : Icons.cancel,
+                  suffixIconColor: _isPassConfPassSame
+                      ? Color(0xFF93c743)
+                      : Color(0xFFFF4C4C),
+                  onChange: _onChangedConfPassword,
+                  obscureText: false,
+                  hintLabel: 'Enter Password Again',
+                  onSaved: (confPassword) {
+                    _confPassword = confPassword;
+                  },
+                  validation: _confPasswordValidation,
+                  focusNode: _confPasswordNode,
+                  nextFocus: null,
+                ),
+
                 /// Signup Button
                 ButtonWidget(
                   label: 'Create Account',
@@ -200,7 +223,7 @@ class _SignupPageState extends State<SignupPage> {
                   icon: Icons.account_circle,
                 ),
                 SizedBox(height: 30.0),
-        
+
                 /// Back to Signing Page
                 Center(
                   child: ClickableTextWidget(
@@ -219,17 +242,32 @@ class _SignupPageState extends State<SignupPage> {
   /// Create Account Logic
   void _createAccount() {}
 
+  /// Check Password and Conf-Password same or Not
+  void _onChangedConfPassword(String confPassword) {
+    if (_passwordController.text == confPassword) {
+      setState(() {
+        _isPassConfPassSame = true;
+      });
+    }
+  }
+
   /// UserName Validation
   String? _userNameValidation(String? value) {
     return null;
   }
 
-  /// Password Validation
+  /// Email Validation
   String? _emailValidation(String? value) {
     return null;
   }
 
+  /// Password Validation
   String? _passwordValidation(String? value) {
+    return null;
+  }
+
+  /// Conform Password Validation
+  String? _confPasswordValidation(String? confPassword) {
     return null;
   }
 }

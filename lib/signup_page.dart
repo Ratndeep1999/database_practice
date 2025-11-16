@@ -65,6 +65,8 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void dispose() {
+    disposeControllers();
+    disposeFocusNodes();
     super.dispose();
   }
 

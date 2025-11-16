@@ -82,6 +82,7 @@ class _SignupPageState extends State<SignupPage> {
   void dispose() {
     disposeControllers();
     disposeFocusNodes();
+    _clearControllers();
     super.dispose();
   }
 
@@ -264,6 +265,14 @@ class _SignupPageState extends State<SignupPage> {
       _saveUserDataToDB();
       _navigateToHomePage();
     }
+  }
+
+  /// Method to Clear Controllers
+  void _clearControllers(){
+    _nameController.clear();
+    _emailController.clear();
+    _passwordController.clear();
+    _confPasswordController.clear();
   }
 
   /// Method to Check Saved Values

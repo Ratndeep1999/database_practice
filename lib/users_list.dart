@@ -56,6 +56,8 @@ class _UsersListState extends State<UsersList> {
                 ),
               )
             : ListView.builder(
+                reverse: true,
+                shrinkWrap: true,
                 padding: EdgeInsets.all(16.0),
                 itemCount: usersList.length,
                 itemBuilder: (_, index) {

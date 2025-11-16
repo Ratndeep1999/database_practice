@@ -29,7 +29,7 @@ class InputTextFieldWidget extends StatelessWidget {
   final String hintLabel;
   final FormFieldSetter<String> onSaved;
   final ValueChanged<String>? onChange;
-  final FormFieldValidator<String> validation;
+  final FormFieldValidator<String>? validation;
   final FocusNode focusNode;
   final FocusNode? nextFocus;
   final List<String>? autoFillHints;

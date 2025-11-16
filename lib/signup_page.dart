@@ -85,6 +85,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: LabelWidget(
           label: "Signup Page",
           fontSize: 30,

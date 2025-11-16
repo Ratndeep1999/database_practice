@@ -94,99 +94,122 @@ class _SignupPageState extends State<SignupPage> {
         centerTitle: true,
         backgroundColor: Colors.orange.shade400,
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              /// Full name label
-              LabelWidget(
-                label: 'Full Name',
-                fontColor: Colors.black,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400,
-              ),
-              SizedBox(height: 18.0),
-
-              /// Full name Text Field
-              InputTextFieldWidget(
-                controller: _nameController,
-                keyboardType: TextInputType.name,
-                isSuffixIcon: true,
-                obscureText: false,
-                hintLabel: 'Enter Your Name',
-                onSaved: (name) {
-                  _name = name;
-                },
-                validation: _userNameValidation,
-                focusNode: _nameNode,
-                nextFocus: _emailNode,
-                autoFillHints: [AutofillHints.name],
-                suffixIcon: Icons.verified_user,
-              ),
-
-              /// Email label
-              LabelWidget(
-                label: 'Email Address',
-                fontColor: Colors.black,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400,
-              ),
-              SizedBox(height: 18.0),
-
-              /// Email Address Text Field
-              InputTextFieldWidget(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                isSuffixIcon: true,
-                obscureText: !isPasswordVisible,
-                suffixIcon: Icons.email,
-                hintLabel: 'Enter Your Email Address',
-                onSaved: (email) {
-                  _email = email;
-                },
-                validation: _emailValidation,
-                focusNode: _emailNode,
-                nextFocus: _passwordNode,
-                autoFillHints: [AutofillHints.email],
-              ),
-
-              /// Password label
-              LabelWidget(
-                label: 'Password',
-                fontColor: Colors.black,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400,
-              ),
-              SizedBox(height: 18.0),
-
-              /// Email label
-              LabelWidget(
-                label: 'Conform password',
-                fontColor: Colors.black,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400,
-              ),
-              SizedBox(height: 18.0),
-
-              /// Signup Button
-              ButtonWidget(
-                label: 'Create Account',
-                buttonPress: _createAccount,
-                icon: Icons.account_circle,
-              ),
-              SizedBox(height: 30.0),
-
-              /// Back to Signing Page
-              Center(
-                child: ClickableTextWidget(
-                  click: () => Navigator.pop(context),
-                  label: 'Back to Login',
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// Full name label
+                LabelWidget(
+                  label: 'Full Name',
+                  fontColor: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
                 ),
-              ),
-            ],
+                SizedBox(height: 18.0),
+        
+                /// Full name Text Field
+                InputTextFieldWidget(
+                  controller: _nameController,
+                  keyboardType: TextInputType.name,
+                  isSuffixIcon: true,
+                  obscureText: false,
+                  hintLabel: 'Enter Your Name',
+                  onSaved: (name) {
+                    _name = name;
+                  },
+                  validation: _userNameValidation,
+                  focusNode: _nameNode,
+                  nextFocus: _emailNode,
+                  autoFillHints: [AutofillHints.name],
+                  suffixIcon: Icons.verified_user,
+                ),
+        
+                /// Email label
+                LabelWidget(
+                  label: 'Email Address',
+                  fontColor: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+                SizedBox(height: 18.0),
+        
+                /// Email Address Text Field
+                InputTextFieldWidget(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  isSuffixIcon: true,
+                  obscureText: !isPasswordVisible,
+                  suffixIcon: Icons.email,
+                  hintLabel: 'Enter Your Email Address',
+                  onSaved: (email) {
+                    _email = email;
+                  },
+                  validation: _emailValidation,
+                  focusNode: _emailNode,
+                  nextFocus: _passwordNode,
+                  autoFillHints: [AutofillHints.email],
+                ),
+        
+                /// Password label
+                LabelWidget(
+                  label: 'Password',
+                  fontColor: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+                SizedBox(height: 18.0),
+        
+                /// Password Text Field
+                InputTextFieldWidget(
+                  controller: _passwordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  isSuffixIcon: true,
+                  suffixIcon: isPasswordVisible
+                      ? Icons.visibility
+                      : Icons.visibility_off,
+                  suffixTap: () => setState(() {
+                    (isPasswordVisible = !isPasswordVisible);
+                  }),
+                  obscureText: !isPasswordVisible,
+                  hintLabel: 'Enter Your Password',
+                  onSaved: (password) {
+                    _password = password;
+                  },
+                  validation: _passwordValidation,
+                  focusNode: _passwordNode,
+                  nextFocus: _confPasswordNode,
+                  autoFillHints: [AutofillHints.password],
+                ),
+        
+                /// Email label
+                LabelWidget(
+                  label: 'Conform password',
+                  fontColor: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+                SizedBox(height: 18.0),
+        
+                /// Signup Button
+                ButtonWidget(
+                  label: 'Create Account',
+                  buttonPress: _createAccount,
+                  icon: Icons.account_circle,
+                ),
+                SizedBox(height: 30.0),
+        
+                /// Back to Signing Page
+                Center(
+                  child: ClickableTextWidget(
+                    click: () => Navigator.pop(context),
+                    label: 'Back to Login',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -203,6 +226,10 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Password Validation
   String? _emailValidation(String? value) {
+    return null;
+  }
+
+  String? _passwordValidation(String? value) {
     return null;
   }
 }

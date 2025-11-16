@@ -11,6 +11,16 @@ class DatabaseService {
     return _instance;
   }
 
+  // Parameters
+  // static const String kDatabaseName = "users.db";
+  // static const int kDatabaseVersion = 1;
+  static const String kTableName = "users";
+  static const String kId = "ID";
+  static const String kUserName = "UserName";
+  static const String kEmailId = "Email_Id";
+  static const String kPassword = "Password";
+  static const String kConformPassword = "Conform_Password";
+
   /// Database Object
   static Database? _database;
 
@@ -34,7 +44,14 @@ class DatabaseService {
     Database openDB = await openDatabase(
       path,
       version: 1,
-      onCreate: (Database db, int version) {},
+      onCreate: (Database db, int version) async {
+        // Sql query that creates database table
+        await db.execute(
+          '''
+          
+          '''
+        );
+      },
     );
     return openDB;
   }

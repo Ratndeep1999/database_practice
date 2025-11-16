@@ -41,7 +41,14 @@ class _UsersListState extends State<UsersList> {
         child: isLoading
             ? Center(child: CircularProgressIndicator())
             : usersList.isEmpty
-            ? Text("No User Found")
+            ? Center(
+                child: LabelWidget(
+                  label: "No User Found",
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w700,
+                  fontColor: Colors.orange,
+                ),
+              )
             : ListView.builder(
                 padding: EdgeInsets.all(16.0),
                 itemCount: usersList.length,

@@ -59,4 +59,22 @@ class DatabaseService {
     );
     return openDB;
   }
+
+  /// Insert User
+  Future<void> insertUser({
+    required String userName,
+    required String emailId,
+    required String password,
+    required String conformPassword,
+  }) async {
+    final Database db = await database;
+    // Method that insert user
+    db.insert(kTableName, {
+      kUserName: userName,
+      kEmailId: emailId,
+      kPassword: password,
+      kConformPassword: conformPassword,
+    });
+  }
+
 }

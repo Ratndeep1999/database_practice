@@ -229,7 +229,7 @@ class _SignupPageState extends State<SignupPage> {
                       buttonPress: _createAccount,
                       icon: Icons.account_circle,
                     ),
-                    SizedBox(height: 30.0),
+                    SizedBox(height: 20.0),
                 
                     /// Back to Signing Page
                     Center(

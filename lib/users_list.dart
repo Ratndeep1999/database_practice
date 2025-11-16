@@ -78,6 +78,8 @@ class _UsersListState extends State<UsersList> {
   Future<void> _getUsers() async {
     final users = await dbService.getUsersList();
     usersList = users;
+    // Disable Loading Indicator
+    isLoading = false;
     setState(() {});
   }
 }

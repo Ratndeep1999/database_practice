@@ -240,7 +240,11 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   /// Create Account Logic
-  void _createAccount() {}
+  void _createAccount() {
+    if (_formKey.currentState!.validate()){
+      _formKey.currentState!.save();
+    }
+  }
 
   /// Check Password and Conf-Password same or Not
   void _onChangedConfPassword(String confPassword) {

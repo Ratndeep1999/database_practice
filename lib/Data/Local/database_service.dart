@@ -82,6 +82,4 @@ class DatabaseService {
     final Database db = await database;
     return await db.query(kTableName);
   }
-
-
 }

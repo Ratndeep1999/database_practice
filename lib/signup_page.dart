@@ -59,6 +59,8 @@ class _SignupPageState extends State<SignupPage> {
   @override
   void initState() {
     super.initState();
+    initControllers();
+    initFocusNodes();
   }
 
   @override

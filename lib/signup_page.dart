@@ -253,7 +253,8 @@ class _SignupPageState extends State<SignupPage> {
     if (_formKey.currentState!.validate()){
       _formKey.currentState!.save();
       _savedDetails();
-      _navigateToLoginPage();
+      // _navigateToLoginPage();
+      _saveUserDataToDB();
     }
   }
 
@@ -314,5 +315,9 @@ class _SignupPageState extends State<SignupPage> {
     if (confPassword == null || confPassword.isEmpty) return 'Please Enter Conform Password';
     if (_isPassConfPassSame == false) return 'Password And Conform Password is Not Same';
     return null;
+  }
+
+  void _saveUserDataToDB() {
+
   }
 }

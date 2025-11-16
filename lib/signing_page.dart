@@ -14,20 +14,20 @@ class SigningPage extends StatefulWidget {
   State<SigningPage> createState() => _SigningPageState();
 }
 
-// Form key
-final _formKey = GlobalKey<FormState>();
-// Controllers
-late final TextEditingController _emailController ;
-late final TextEditingController _passwordController;
-// Focus nodes
-late final FocusNode _emailFocus;
-late final FocusNode _passwordFocus;
-// Parameters
-bool _isPasswordVisible = false;
-String? _email;
-String? _password;
-
 class _SigningPageState extends State<SigningPage> {
+
+  // Form key
+  final _formKey = GlobalKey<FormState>();
+// Controllers
+  late final TextEditingController _emailController ;
+  late final TextEditingController _passwordController;
+// Focus nodes
+  late final FocusNode _emailFocus;
+  late final FocusNode _passwordFocus;
+// Parameters
+  bool _isPasswordVisible = false;
+  String? _email;
+  String? _password;
 
   @override
   void initState() {

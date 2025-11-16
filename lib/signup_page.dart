@@ -4,7 +4,6 @@ import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:database_practice/users_list.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'CustomWidgets/label_widget.dart';
 
 class SignupPage extends StatefulWidget {

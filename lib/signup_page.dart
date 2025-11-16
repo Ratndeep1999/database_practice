@@ -292,6 +292,7 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Conform Password Validation
   String? _confPasswordValidation(String? confPassword) {
+    if (confPassword == null || confPassword.isEmpty) return 'Please Enter Conform Password';
     if (_isPassConfPassSame == false) return 'Password And Conform Password is Not Same';
     return null;
   }

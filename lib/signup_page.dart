@@ -1,6 +1,7 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
 import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
+import 'package:database_practice/signing_page.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
 
@@ -248,16 +249,22 @@ class _SignupPageState extends State<SignupPage> {
   void _createAccount() {
     if (_formKey.currentState!.validate()){
       _formKey.currentState!.save();
-      savedDetails();
+      _savedDetails();
+      _navigateToLoginPage()
     }
   }
 
   /// Method to Check Saved Values
-  void savedDetails(){
+  void _savedDetails(){
     debugPrint('Full Name : $_name');
     debugPrint('Email : $_email');
     debugPrint('Password : $_password');
     debugPrint('Conform Password : $_confPassword');
+  }
+
+  /// Navigate To Login Screen
+  void _navigateToLoginPage(){
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=> SigningPage()));
   }
 
   /// Check Password and Conf-Password same or Not

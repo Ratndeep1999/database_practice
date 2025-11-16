@@ -1,5 +1,6 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
+import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
 
@@ -60,6 +61,7 @@ class _SignupPageState extends State<SignupPage> {
   String? _email;
   String? _password;
   String? _confPassword;
+  bool isPasswordVisible = true;
 
   // FormKey
   final _formKey = GlobalKey<FormState>();
@@ -98,6 +100,7 @@ class _SignupPageState extends State<SignupPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               /// Full name label
               LabelWidget(
                 label: 'Full Name',
@@ -107,6 +110,23 @@ class _SignupPageState extends State<SignupPage> {
               ),
               SizedBox(height: 18.0),
 
+              /// Full name Text Field
+              InputTextFieldWidget(
+                controller: _nameController,
+                keyboardType: TextInputType.name,
+                isSuffixIcon: true,
+                obscureText: false,
+                hintLabel: 'Enter Your Name',
+                onSaved: (name) {
+                  _name = name;
+                },
+                validation: _userNameValidation,
+                focusNode: _nameNode,
+                nextFocus: _emailNode,
+                autoFillHints: [AutofillHints.name],
+                suffixIcon: Icons.verified_user,
+              ),
+
               /// Email label
               LabelWidget(
                 label: 'Email Address',
@@ -115,6 +135,23 @@ class _SignupPageState extends State<SignupPage> {
                 fontWeight: FontWeight.w400,
               ),
               SizedBox(height: 18.0),
+
+              /// Email Address Text Field
+              InputTextFieldWidget(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                isSuffixIcon: true,
+                obscureText: !isPasswordVisible,
+                suffixIcon: Icons.email,
+                hintLabel: 'Enter Your Email Address',
+                onSaved: (email) {
+                  _email = email;
+                },
+                validation: _emailValidation,
+                focusNode: _emailNode,
+                nextFocus: _passwordNode,
+                autoFillHints: [AutofillHints.email],
+              ),
 
               /// Password label
               LabelWidget(
@@ -158,4 +195,14 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Create Account Logic
   void _createAccount() {}
+
+  /// UserName Validation
+  String? _userNameValidation(String? value) {
+    return null;
+  }
+
+  /// Password Validation
+  String? _emailValidation(String? value) {
+    return null;
+  }
 }

@@ -11,4 +11,13 @@ class DatabaseService {
 
   /// Database Object
   static Database? _database;
+
+  /// get method to initialize Database
+  Future<Database> get database async {
+    if (_database != null) return _database!;
+    _database = await _createDB();
+    return _database!;
+  }
+
+  Future<Database?> _createDB() async {}
 }

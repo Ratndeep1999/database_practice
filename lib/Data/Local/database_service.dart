@@ -50,7 +50,7 @@ class DatabaseService {
           CREATE TABLE $kTableName (
           $kId INTEGER PRIMARY KEY AUTOINCREMENT,
           $kUserName TEXT,
-          $kEmailId TEXT,
+          $kEmailId TEXT UNIQUE,
           $kPassword TEXT,
           $kConformPassword TEXT
           );

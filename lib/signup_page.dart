@@ -270,6 +270,14 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Password Validation
   String? _passwordValidation(String? value) {
+    String? password = value;
+    if (password == null || password.isEmpty) return 'Please Enter Password';
+    if (password.length < 8) return 'Password must be at least 8 characters';
+    if (password.contains(' ')) return 'Space is Not Allowed';
+    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password)) return "Must contain lowercase letter";
+    if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Must contain one special character (!@#\$&*~_)";
     return null;
   }
 

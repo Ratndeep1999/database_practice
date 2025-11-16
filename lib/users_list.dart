@@ -12,7 +12,7 @@ class UsersList extends StatefulWidget {
 
 class _UsersListState extends State<UsersList> {
   /// Users List
-  final List<Map<String, dynamic>> usersList = [];
+  List<Map<String, dynamic>> usersList = [];
   late DatabaseService dbService;
 
   @override
@@ -69,5 +69,9 @@ class _UsersListState extends State<UsersList> {
   }
 
   /// Method to Load Users in List
-  void _getUsers() {}
+  Future<void> _getUsers() async {
+    final users = await dbService.getUsersList();
+    usersList = users;
+    setState(() {});
+  }
 }

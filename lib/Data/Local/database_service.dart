@@ -62,10 +62,10 @@ class DatabaseService {
 
   /// Insert User
   Future<void> insertUser({
-    required String userName,
-    required String emailId,
-    required String password,
-    required String conformPassword,
+    required String? userName,
+    required String? emailId,
+    required String? password,
+    required String? conformPassword,
   }) async {
     final Database db = await database;
     // Method that insert user

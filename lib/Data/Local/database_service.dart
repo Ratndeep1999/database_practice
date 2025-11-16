@@ -45,15 +45,18 @@ class DatabaseService {
       path,
       version: 1,
       onCreate: (Database db, int version) async {
-        // Sql query that creates database table
-        await db.execute(
-          '''
-          
-          '''
-        );
+        /// Sql query that creates database table
+        await db.execute('''
+          CREATE TABLE $kTableName (
+          $kId INTEGER PRIMARY KEY AUTOINCREMENT,
+          $kUserName TEXT,
+          $kEmailId TEXT,
+          $kPassword TEXT,
+          $kConformPassword TEXT
+          );
+          ''');
       },
     );
     return openDB;
   }
-
 }

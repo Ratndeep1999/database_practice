@@ -244,11 +244,11 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Check Password and Conf-Password same or Not
   void _onChangedConfPassword(String confPassword) {
-    if (_passwordController.text == confPassword) {
-      setState(() {
-        _isPassConfPassSame = true;
-      });
-    }
+    setState(() {
+      _isPassConfPassSame = (_passwordController.text == confPassword)
+          ? true
+          : false;
+    });
   }
 
   /// UserName Validation

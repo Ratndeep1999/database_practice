@@ -10,6 +10,13 @@ class UsersList extends StatefulWidget {
 }
 
 class _UsersListState extends State<UsersList> {
+
+  @override
+  void initState() {
+    super.initState();
+    _getUsers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,4 +56,7 @@ class _UsersListState extends State<UsersList> {
       ),
     );
   }
+
+  /// Method to Load Users in List
+  void _getUsers() {}
 }

@@ -1,3 +1,4 @@
+import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:flutter/material.dart';
 
 import 'CustomWidgets/label_widget.dart';
@@ -12,10 +13,12 @@ class UsersList extends StatefulWidget {
 class _UsersListState extends State<UsersList> {
   /// Users List
   final List<Map<String, dynamic>> usersList = [];
+  late DatabaseService dbService;
 
   @override
   void initState() {
     super.initState();
+    _initDatabase();
     _getUsers();
   }
 
@@ -57,6 +60,12 @@ class _UsersListState extends State<UsersList> {
         ),
       ),
     );
+  }
+
+  /// Method add that initialize database
+  Future<void> _initDatabase() async {
+    dbService = DatabaseService();
+    await dbService.database;
   }
 
   /// Method to Load Users in List

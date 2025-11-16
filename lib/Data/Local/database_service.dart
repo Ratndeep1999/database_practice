@@ -69,12 +69,16 @@ class DatabaseService {
   }) async {
     final Database db = await database;
     // Method that insert user
-    db.insert(kTableName, {
+    await db.insert(kTableName, {
       kUserName: userName,
       kEmailId: emailId,
       kPassword: password,
       kConformPassword: conformPassword,
     });
   }
+
+  /// Read/Fetch User
+  void
+
 
 }

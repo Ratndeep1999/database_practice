@@ -11,6 +11,18 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +52,7 @@ class _SignupPageState extends State<SignupPage> {
                 fontWeight: FontWeight.w400,
               ),
               SizedBox(height: 18.0),
+
 
               /// Email label
               LabelWidget(

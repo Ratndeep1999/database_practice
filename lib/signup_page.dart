@@ -248,6 +248,7 @@ class _SignupPageState extends State<SignupPage> {
   void _createAccount() {
     if (_formKey.currentState!.validate()){
       _formKey.currentState!.save();
+      savedDetails();
     }
   }
 

@@ -54,6 +54,12 @@ void disposeFocusNodes(){
   _confPasswordNode.dispose();
 }
 
+// Variables
+String? _name;
+String? _email;
+String? _password;
+String? _confPassword;
+
 class _SignupPageState extends State<SignupPage> {
 
   @override

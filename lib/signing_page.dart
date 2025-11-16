@@ -18,30 +18,16 @@ class _SigningPageState extends State<SigningPage> {
 
   // Form key
   final _formKey = GlobalKey<FormState>();
-// Controllers
+  // Controllers
   late final TextEditingController _emailController ;
   late final TextEditingController _passwordController;
-// Focus nodes
+  // Focus nodes
   late final FocusNode _emailFocus;
   late final FocusNode _passwordFocus;
-// Parameters
+  // Parameters
   bool _isPasswordVisible = false;
   String? _email;
   String? _password;
-
-  @override
-  void initState() {
-    super.initState();
-    _initController();
-    _initFocusNodes();
-  }
-
-  @override
-  void dispose() {
-    _disposeController();
-    _disposeFocusNodes();
-    super.dispose();
-  }
 
   // Method to initialize Controller
   void _initController(){
@@ -65,6 +51,20 @@ class _SigningPageState extends State<SigningPage> {
   void _disposeFocusNodes(){
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initController();
+    _initFocusNodes();
+  }
+
+  @override
+  void dispose() {
+    _disposeController();
+    _disposeFocusNodes();
+    super.dispose();
   }
 
   @override

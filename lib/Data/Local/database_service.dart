@@ -78,7 +78,10 @@ class DatabaseService {
   }
 
   /// Read/Fetch User
-  void
+  Future<List<Map<String, Object?>>> getUsersList() async {
+    final Database db = await database;
+    return await db.query(kTableName);
+  }
 
 
 }

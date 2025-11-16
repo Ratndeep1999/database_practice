@@ -37,27 +37,30 @@ class _UsersListState extends State<UsersList> {
         backgroundColor: Colors.orange.shade400,
       ),
       body: SafeArea(
-        child: ListView.builder(
-          padding: EdgeInsets.all(16.0),
-          itemCount: 100,
-          itemBuilder: (_, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: ListTile(
-                leading: Text("${index + 1}"),
-                title: Text("Index : $index"),
-                subtitle: Text("This is Subtitle"),
-                trailing: Icon(Icons.delete, size: 20.0),
-                tileColor: Colors.orange.shade100,
-                iconColor: Colors.black45,
-                titleAlignment: ListTileTitleAlignment.center,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+        child: usersList.isEmpty
+            ? Text("No User Found")
+            : ListView.builder(
+                padding: EdgeInsets.all(16.0),
+                itemCount: usersList.length,
+                itemBuilder: (_, index) {
+                  final user = usersList[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 4),
+                    child: ListTile(
+                      leading: Text("${index + 1}"),
+                      title: Text(user[DatabaseService.kUserName]),
+                      subtitle: Text(user[DatabaseService.kEmailId]),
+                      trailing: Icon(Icons.delete, size: 20.0),
+                      tileColor: Colors.orange.shade100,
+                      iconColor: Colors.black45,
+                      titleAlignment: ListTileTitleAlignment.center,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ),
     );
   }

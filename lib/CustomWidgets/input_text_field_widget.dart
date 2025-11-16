@@ -6,6 +6,7 @@ class InputTextFieldWidget extends StatelessWidget {
     required this.controller,
     required this.keyboardType,
     this.suffixIcon,
+    this.suffixIconColor,
     required this.isSuffixIcon,
     this.suffixTap,
     required this.obscureText,
@@ -21,6 +22,7 @@ class InputTextFieldWidget extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? keyboardType;
   final IconData? suffixIcon;
+  final Color? suffixIconColor;
   final bool isSuffixIcon;
   final VoidCallback? suffixTap;
   final bool obscureText;
@@ -60,7 +62,10 @@ class InputTextFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         hint: Text(hintLabel),
         suffixIcon: isSuffixIcon
-            ? IconButton(onPressed: suffixTap, icon: Icon(suffixIcon, size: 20))
+            ? IconButton(
+                onPressed: suffixTap,
+                icon: Icon(suffixIcon, size: 20, color: suffixIconColor),
+              )
             : null,
         isDense: true,
         // Borders

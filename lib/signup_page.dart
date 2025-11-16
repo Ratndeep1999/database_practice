@@ -253,6 +253,10 @@ class _SignupPageState extends State<SignupPage> {
 
   /// UserName Validation
   String? _userNameValidation(String? value) {
+    String? userName = value;
+    if (userName == null || userName.isEmpty) return "Please Enter Username";
+    if (userName.length < 4) return 'Name is Too Short';
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName)) return 'Please Enter Letters Only';
     return null;
   }
 

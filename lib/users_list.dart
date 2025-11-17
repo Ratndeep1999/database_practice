@@ -74,8 +74,18 @@ class _UsersListState extends State<UsersList> {
   }
 
   /// Edit Icon Functionality
-  void _editIconPress() {}
+  Future<void> _editIconPress(int id, String userName, String emailId) async {
+    await dbService.updateUserData(
+      id: id,
+      userName: userName,
+      emailId: emailId,
+    );
+    _getUsers();
+  }
 
   /// Delete Icon Functionality
-  void _deleteIconPress() {}
+  Future<void> _deleteIconPress(int id) async {
+    await dbService.deleteUser(id: id);
+    _getUsers();
+  }
 }

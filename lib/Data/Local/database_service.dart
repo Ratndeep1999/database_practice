@@ -82,4 +82,14 @@ class DatabaseService {
     final Database db = await database;
     return await db.query(kTableName);
   }
+
+  /// Update User
+  Future<void> updateUserData({
+    required String? userName,
+    required String? emailId,
+  }) async {
+    final Database db = await database;
+    db.update(kTableName, {kUserName: userName, kEmailId: emailId});
+  }
+
 }

@@ -1,3 +1,4 @@
+import 'package:database_practice/CustomWidgets/icon_widget.dart';
 import 'package:flutter/material.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
@@ -62,9 +63,11 @@ class InputTextFieldWidget extends StatelessWidget {
       decoration: InputDecoration(
         hint: Text(hintLabel),
         suffixIcon: isSuffixIcon
-            ? IconButton(
-                onPressed: suffixTap,
-                icon: Icon(suffixIcon, size: 20, color: suffixIconColor),
+            ? IconWidget(
+                iconPress: suffixTap,
+                icon: suffixIcon,
+                iconColor: Colors.black45,
+                iconSize: 20.0,
               )
             : null,
         isDense: true,

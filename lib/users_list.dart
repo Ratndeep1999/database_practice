@@ -122,6 +122,26 @@ class _UsersListState extends State<UsersList> {
               ),
               SizedBox(height: 15.0,),
 
+              /// Email Address Label
+              LabelWidget(
+                label: 'Email Address',
+                fontSize: 18,
+                fontColor: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
+              SizedBox(height: 8.0),
+              InputTextFieldWidget(
+                  controller: userName,
+                  keyboardType: keyboardType,
+                  isSuffixIcon: isSuffixIcon,
+                  obscureText: obscureText,
+                  hintLabel: hintLabel,
+                  onSaved: onSaved,
+                  validation: validation,
+                  focusNode: focusNode
+              ),
+              SizedBox(height: 15.0,),
+
 
             ],
           ),

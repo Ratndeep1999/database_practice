@@ -101,7 +101,13 @@ class _UsersListState extends State<UsersList> {
               ),
               SizedBox(height: 10.0),
 
-
+              /// User Name Label
+              LabelWidget(
+                label: 'User Name',
+                fontSize: 18,
+                fontColor: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
             ],
           ),
         ),

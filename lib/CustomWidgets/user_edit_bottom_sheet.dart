@@ -1,3 +1,4 @@
+import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
 import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,9 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
 
   // Database Service Object
   DatabaseService dbService = DatabaseService();
+
+  // Variable to show Circular indicator
+  bool isSaving = false;
 
   @override
   void initState() {
@@ -104,8 +108,10 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                     SizedBox(
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: _updateUserDetails,
-                        child: Text("Save"),
+                        onPressed: isSaving ? null : _updateUserDetails,
+                        child: isSaving
+                            ? CircularIndicatorWidget(strokeWidth: 2)
+                            : Text("Save"),
                       ),
                     ),
                     Spacer(),
@@ -129,14 +135,15 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   }
 
   /// Method to Update User Details
-  void _updateUserDetails() {
+  Future<void> _updateUserDetails() async {
     if (_formKey.currentState!.validate()) {
       /// Database Service Class Method to Update User Data
-      dbService.updateUserData(
+      await dbService.updateUserData(
         id: widget.id,
         userName: _userNameController.text,
         emailId: _emailController.text,
       );
+
       /// method call to Update User Details in List
       widget.onUpdateUser();
     }

@@ -144,6 +144,11 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
         emailId: _emailController.text,
       );
 
+      /// To Show Circular Indicator When Press on Save
+      setState(() {
+        isSaving = true;
+      });
+
       /// method call to Update User Details in List
       widget.onUpdateUser();
     }

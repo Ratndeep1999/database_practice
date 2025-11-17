@@ -1,6 +1,6 @@
 import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:flutter/material.dart';
-
+import 'CustomWidgets/icon_widget.dart';
 import 'CustomWidgets/label_widget.dart';
 
 class UsersList extends StatefulWidget {
@@ -68,7 +68,25 @@ class _UsersListState extends State<UsersList> {
                       leading: Text("${index + 1}"),
                       title: Text(user[DatabaseService.kUserName]),
                       subtitle: Text(user[DatabaseService.kEmailId]),
-                      trailing: Icon(Icons.delete, size: 20.0),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          /// Edit Icon
+                          IconWidget(
+                            iconPress: _editIconPress,
+                            icon: Icons.edit,
+                            iconSize: 20,
+                            iconColor: Colors.black45,
+                          ),
+                          /// Edit Icon
+                          IconWidget(
+                            iconPress: _deleteIconPress,
+                            icon: Icons.delete,
+                            iconSize: 20,
+                            iconColor: Colors.black45,
+                          ),
+                        ],
+                      ),
                       tileColor: Colors.orange.shade100,
                       iconColor: Colors.black45,
                       titleAlignment: ListTileTitleAlignment.center,
@@ -96,5 +114,13 @@ class _UsersListState extends State<UsersList> {
     // Disable Loading Indicator
     isLoading = false;
     setState(() {});
+  }
+
+  /// Edit Icon Functionality
+  void _editIconPress() {
+  }
+
+  /// Delete Icon Functionality
+  void _deleteIconPress() {
   }
 }

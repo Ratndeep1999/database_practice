@@ -91,8 +91,9 @@ class _UsersListState extends State<UsersList> {
     );
   }
 
-  /// Delete Icon Functionality
+  /// Method To Delete User From Database
   Future<void> _deleteIconPress(int id) async {
+    /// Database Service Class Method to Delete User Data
     await dbService.deleteUser(id: id);
     _getUsers();
   }

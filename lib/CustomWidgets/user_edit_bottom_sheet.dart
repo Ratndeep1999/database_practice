@@ -99,7 +99,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                 /// Save Button
                 SizedBox(
                   width: 150,
-                  child: ElevatedButton(onPressed: () {}, child: Text("Save")),
+                  child: ElevatedButton(onPressed: _updateUserDetails, child: Text("Save")),
                 ),
                 Spacer(),
 
@@ -107,7 +107,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                 SizedBox(
                   width: 150,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _cancelUpdate,
                     child: Text("Cancel"),
                   ),
                 ),
@@ -117,5 +117,15 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
         ],
       ),
     );
+  }
+
+  /// Method to Update User Details
+  void _updateUserDetails() {
+
+  }
+
+  /// Method to Cancel
+  void _cancelUpdate() {
+    Navigator.pop(context);
   }
 }

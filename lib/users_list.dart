@@ -78,7 +78,8 @@ class _UsersListState extends State<UsersList> {
                             iconSize: 20,
                             iconColor: Colors.black45,
                           ),
-                          SizedBox(width: 8.0,),
+                          SizedBox(width: 8.0),
+
                           /// Edit Icon
                           IconWidget(
                             iconPress: _deleteIconPress,
@@ -87,6 +88,18 @@ class _UsersListState extends State<UsersList> {
                             iconColor: Colors.black45,
                           ),
                         ],
+                      ),
+
+                      /// Styling
+                      titleTextStyle: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitleTextStyle: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black54,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       tileColor: Colors.orange.shade100,
                       iconColor: Colors.black45,

@@ -6,16 +6,18 @@ class ButtonWidget extends StatelessWidget {
     required this.label,
     required this.buttonPress,
     this.icon,
+    this.buttonWidth
   });
 
   final String label;
   final IconData? icon;
   final VoidCallback buttonPress;
+  final double? buttonWidth;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: buttonWidth ?? double.infinity,
       child: ElevatedButton.icon(
         onPressed: buttonPress,
         label: Text(label),

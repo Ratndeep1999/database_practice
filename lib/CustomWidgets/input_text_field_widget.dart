@@ -10,12 +10,12 @@ class InputTextFieldWidget extends StatelessWidget {
     this.suffixIconColor,
     required this.isSuffixIcon,
     this.suffixTap,
-    required this.obscureText,
-    required this.hintLabel,
+    this.obscureText,
+    this.hintLabel,
     required this.onSaved,
     this.onChange,
     required this.validation,
-    required this.focusNode,
+    this.focusNode,
     this.nextFocus,
     this.autoFillHints,
   });
@@ -26,12 +26,12 @@ class InputTextFieldWidget extends StatelessWidget {
   final Color? suffixIconColor;
   final bool isSuffixIcon;
   final VoidCallback? suffixTap;
-  final bool obscureText;
-  final String hintLabel;
+  final bool? obscureText;
+  final String? hintLabel;
   final FormFieldSetter<String> onSaved;
   final ValueChanged<String>? onChange;
   final FormFieldValidator<String> validation;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final FocusNode? nextFocus;
   final List<String>? autoFillHints;
 
@@ -51,7 +51,7 @@ class InputTextFieldWidget extends StatelessWidget {
             : FocusScope.of(context).unfocus();
       },
       focusNode: focusNode,
-      obscureText: obscureText,
+      obscureText: obscureText ?? false,
       autofocus: false,
       textInputAction: TextInputAction.next,
       keyboardType: keyboardType,
@@ -61,7 +61,7 @@ class InputTextFieldWidget extends StatelessWidget {
         fontWeight: FontWeight.w400,
       ),
       decoration: InputDecoration(
-        hint: Text(hintLabel),
+        hint: Text(hintLabel ?? ''),
         suffixIcon: isSuffixIcon
             ? IconWidget(
                 iconPress: suffixTap,

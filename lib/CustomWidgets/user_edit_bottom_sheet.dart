@@ -65,9 +65,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
             keyboardType: TextInputType.name,
             isSuffixIcon: false,
             onSaved: (value) {},
-            validation: (value) {
-              return null;
-            },
+            validation: _userNameValidation,
           ),
           SizedBox(height: 18.0),
 
@@ -84,9 +82,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
             keyboardType: TextInputType.name,
             isSuffixIcon: false,
             onSaved: (value) {},
-            validation: (value) {
-              return null;
-            },
+            validation: _emailValidation,
           ),
           SizedBox(height: 50.0),
 
@@ -99,7 +95,10 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                 /// Save Button
                 SizedBox(
                   width: 150,
-                  child: ElevatedButton(onPressed: _updateUserDetails, child: Text("Save")),
+                  child: ElevatedButton(
+                    onPressed: _updateUserDetails,
+                    child: Text("Save"),
+                  ),
                 ),
                 Spacer(),
 
@@ -120,12 +119,27 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   }
 
   /// Method to Update User Details
-  void _updateUserDetails() {
-
-  }
+  void _updateUserDetails() {}
 
   /// Method to Cancel
   void _cancelUpdate() {
     Navigator.pop(context);
+  }
+
+  /// Method that Validate Updated User Name
+  String? _userNameValidation(String? value) {
+    String? userName = value;
+    if (userName == null || userName.isEmpty) return "Please Enter Username";
+    if (userName.length < 4) return 'Name is Too Short';
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName)) return 'Please Enter Letters Only';
+    return null;
+  }
+
+  /// Method that Validate Email
+  String? _emailValidation(String? value) {
+    String? email = value?.trim().toLowerCase();
+    if (email == null || email.isEmpty) return 'Please Enter Email Address';
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
+    return null;
   }
 }

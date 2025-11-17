@@ -5,7 +5,7 @@ class LabelWidget extends StatelessWidget {
     super.key,
     required this.label,
     required this.fontSize,
-    required this.fontWeight,
+    this.fontWeight,
     required this.fontColor,
     this.letterSpacing,
   });
@@ -13,7 +13,7 @@ class LabelWidget extends StatelessWidget {
   // parameters
   final String label;
   final double fontSize;
-  final FontWeight fontWeight;
+  final FontWeight? fontWeight;
   final Color fontColor;
   final double? letterSpacing;
 
@@ -23,7 +23,7 @@ class LabelWidget extends StatelessWidget {
       label,
       style: TextStyle(
         fontSize: fontSize,
-        fontWeight: fontWeight,
+        fontWeight: fontWeight ?? FontWeight.w700,
         color: fontColor,
         letterSpacing: letterSpacing,
       ),

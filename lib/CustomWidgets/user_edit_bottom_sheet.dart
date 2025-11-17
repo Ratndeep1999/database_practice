@@ -131,11 +131,14 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   /// Method to Update User Details
   void _updateUserDetails() {
     if (_formKey.currentState!.validate()) {
+      /// Database Service Class Method to Update User Data
       dbService.updateUserData(
         id: widget.id,
         userName: _userNameController.text,
         emailId: _emailController.text,
       );
+      /// method call to Update User Details in List
+      widget.onUpdateUser();
     }
   }
 

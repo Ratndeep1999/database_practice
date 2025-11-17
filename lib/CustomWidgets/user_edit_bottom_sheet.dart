@@ -3,13 +3,26 @@ import 'package:flutter/material.dart';
 import 'label_widget.dart';
 
 class UserEditBottomSheet extends StatefulWidget {
-  const UserEditBottomSheet({super.key});
+  const UserEditBottomSheet({
+    super.key,
+    required this.id,
+    required this.oldName,
+    required this.oldEmail,
+    required this.onUpdateUser,
+  });
+
+  // Parameters
+  final int id;
+  final String oldName;
+  final String oldEmail;
+  final VoidCallback onUpdateUser;
 
   @override
   State<UserEditBottomSheet> createState() => _UserEditBottomSheetState();
 }
 
 class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
+  // Controllers
   late final TextEditingController userNameController;
   late final TextEditingController emailController;
 

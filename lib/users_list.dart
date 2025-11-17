@@ -82,7 +82,12 @@ class _UsersListState extends State<UsersList> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (c) => UserEditBottomSheet(),
+      builder: (c) => UserEditBottomSheet(
+        id: id,
+        oldName: userName,
+        oldEmail: emailId,
+        onUpdateUser: _updateUserData,
+      ),
     );
   }
 
@@ -91,4 +96,7 @@ class _UsersListState extends State<UsersList> {
     await dbService.deleteUser(id: id);
     _getUsers();
   }
+
+  /// Method to Update User Data
+  void _updateUserData() {}
 }

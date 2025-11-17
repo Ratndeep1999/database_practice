@@ -1,3 +1,4 @@
+import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
 import 'package:database_practice/CustomWidgets/list_view_builder_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
@@ -81,47 +82,68 @@ class _UsersListState extends State<UsersList> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (c) => SizedBox(
-        width: double.infinity,
-        height: 500,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// Edit User Data Label
-              Center(
-                child: LabelWidget(
-                  label: 'Edit User Data',
-                  fontSize: 20,
-                  fontColor: Colors.orange,
-                  letterSpacing: 2.0,
-                ),
+      builder: (c) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// Edit User Data Label
+            Center(
+              child: LabelWidget(
+                label: 'Edit User Data',
+                fontSize: 20,
+                fontColor: Colors.orange,
+                letterSpacing: 2.0,
               ),
-              SizedBox(height: 15.0),
+            ),
+            SizedBox(height: 15.0),
 
-              /// User Name Label
-              LabelWidget(
-                label: 'User Name',
-                fontSize: 18,
-                fontColor: Colors.black,
-                fontWeight: FontWeight.w400,
+            /// User Name Label
+            LabelWidget(
+              label: 'User Name',
+              fontSize: 18,
+              fontColor: Colors.black,
+              fontWeight: FontWeight.w400,
+            ),
+            SizedBox(height: 8.0),
+
+            SizedBox(height: 15.0),
+
+            /// Email Address Label
+            LabelWidget(
+              label: 'Email Address',
+              fontSize: 18,
+              fontColor: Colors.black,
+              fontWeight: FontWeight.w400,
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              /// Button Section
+              child: Row(
+                children: [
+                  /// Save Button
+                  SizedBox(
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Save"),
+                    ),
+                  ),
+                  Spacer(),
+                  /// Cancel Button
+                  SizedBox(
+                    width: 150,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Cancel"),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 8.0),
-
-              SizedBox(height: 15.0,),
-
-              /// Email Address Label
-              LabelWidget(
-                label: 'Email Address',
-                fontSize: 18,
-                fontColor: Colors.black,
-                fontWeight: FontWeight.w400,
-              ),
-
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

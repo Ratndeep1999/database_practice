@@ -1,7 +1,7 @@
 import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
+import 'package:database_practice/CustomWidgets/list_view_builder_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:flutter/material.dart';
-import 'CustomWidgets/icon_widget.dart';
 import 'CustomWidgets/label_widget.dart';
 
 class UsersList extends StatefulWidget {
@@ -40,73 +40,19 @@ class _UsersListState extends State<UsersList> {
       ),
       body: SafeArea(
         child: isLoading
-            ? Center(
-                child: CircularIndicatorWidget(),
-              )
+            ? CircularIndicatorWidget()
             : usersList.isEmpty
             ? Center(
                 child: LabelWidget(
                   label: "No User Found",
                   fontSize: 30.0,
-                  fontWeight: FontWeight.w700,
                   fontColor: Colors.orange,
                 ),
               )
-            : ListView.builder(
-                reverse: true,
-                shrinkWrap: true,
-                padding: EdgeInsets.all(16.0),
-                itemCount: usersList.length,
-                itemBuilder: (_, index) {
-                  final user = usersList[index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4),
-                    child: ListTile(
-                      leading: Text("${index + 1}"),
-                      title: Text(user[DatabaseService.kUserName]),
-                      subtitle: Text(user[DatabaseService.kEmailId]),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          /// Edit Icon
-                          IconWidget(
-                            iconPress: _editIconPress,
-                            icon: Icons.edit,
-                            iconSize: 20,
-                            iconColor: Colors.black45,
-                          ),
-                          SizedBox(width: 8.0),
-
-                          /// Edit Icon
-                          IconWidget(
-                            iconPress: _deleteIconPress,
-                            icon: Icons.delete,
-                            iconSize: 20,
-                            iconColor: Colors.black45,
-                          ),
-                        ],
-                      ),
-
-                      /// Styling
-                      titleTextStyle: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitleTextStyle: TextStyle(
-                        fontSize: 13,
-                        color: Colors.black54,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      tileColor: Colors.orange.shade100,
-                      iconColor: Colors.black45,
-                      titleAlignment: ListTileTitleAlignment.center,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  );
-                },
+            : ListViewBuilderWidget(
+                users: usersList,
+                onEdit: _editIconPress,
+                onDelete: _deleteIconPress,
               ),
       ),
     );

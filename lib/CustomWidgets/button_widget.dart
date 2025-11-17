@@ -5,11 +5,11 @@ class ButtonWidget extends StatelessWidget {
     super.key,
     required this.label,
     required this.buttonPress,
-    required this.icon,
+    this.icon,
   });
 
   final String label;
-  final IconData icon;
+  final IconData? icon;
   final VoidCallback buttonPress;
 
   @override

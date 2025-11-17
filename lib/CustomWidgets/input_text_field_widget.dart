@@ -12,7 +12,7 @@ class InputTextFieldWidget extends StatelessWidget {
     this.suffixTap,
     this.obscureText,
     this.hintLabel,
-    required this.onSaved,
+    this.onSaved,
     this.onChange,
     required this.validation,
     this.focusNode,
@@ -28,7 +28,7 @@ class InputTextFieldWidget extends StatelessWidget {
   final VoidCallback? suffixTap;
   final bool? obscureText;
   final String? hintLabel;
-  final FormFieldSetter<String> onSaved;
+  final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onChange;
   final FormFieldValidator<String> validation;
   final FocusNode? focusNode;

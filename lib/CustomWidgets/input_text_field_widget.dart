@@ -66,7 +66,7 @@ class InputTextFieldWidget extends StatelessWidget {
             ? IconWidget(
                 iconPress: suffixTap,
                 icon: suffixIcon,
-                iconColor: Colors.black45,
+                iconColor: suffixIconColor,
                 iconSize: 20.0,
               )
             : null,

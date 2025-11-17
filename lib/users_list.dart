@@ -1,3 +1,4 @@
+import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
 import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
 import 'package:database_practice/CustomWidgets/list_view_builder_widget.dart';
@@ -142,7 +143,14 @@ class _UsersListState extends State<UsersList> {
               ),
               SizedBox(height: 15.0,),
 
-
+              Row(
+                children: [
+                  /// Save Button
+                  ButtonWidget(label: "Save", buttonPress: (){}),
+                  Spacer(),
+                  ButtonWidget(label: "Cancel", buttonPress: (){})
+                ],
+              )
             ],
           ),
         ),

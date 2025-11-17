@@ -16,9 +16,9 @@ class IconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: iconPress,
-      icon: Icon(icon, size: iconSize, color: iconColor),
+    return InkWell(
+      onTap: iconPress,
+      child: Icon(icon, size: iconSize, color: iconColor),
     );
   }
 }

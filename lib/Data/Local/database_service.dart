@@ -90,7 +90,7 @@ class DatabaseService {
     required String? emailId,
   }) async {
     final Database db = await database;
-    db.update(
+    await db.update(
       kTableName,
       {kUserName: userName, kEmailId: emailId},
       where: '$kId = ?',
@@ -101,6 +101,6 @@ class DatabaseService {
   /// Delete User
   Future<void> deleteUser({required int id}) async {
     final Database db = await database;
-    db.delete(kTableName, where: '$kId = ?', whereArgs: [id]);
+    await db.delete(kTableName, where: '$kId = ?', whereArgs: [id]);
   }
 }

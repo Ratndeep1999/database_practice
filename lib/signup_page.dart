@@ -334,8 +334,10 @@ class _SignupPageState extends State<SignupPage> {
     return null;
   }
 
-  void _saveUserDataToDB() {
-    dbService.insertUser(
+  /// Method To Save User inti Database
+  Future<void> _saveUserDataToDB() async {
+    /// Database Service Class Method to Save User Data
+    await dbService.insertUser(
       emailId: _email,
       userName: _name,
       password: _password,

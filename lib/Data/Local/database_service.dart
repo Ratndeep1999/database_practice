@@ -101,6 +101,6 @@ class DatabaseService {
   /// Delete User
   Future<void> deleteUser({required int id}) async {
     final Database db = await database;
-    db.delete(kTableName);
+    db.delete(kTableName, where: '$kId = ?', whereArgs: [id]);
   }
 }

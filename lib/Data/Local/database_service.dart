@@ -32,7 +32,7 @@ class DatabaseService {
   }
 
   /// Create Database
-  Future<Database?> _createDB() async {
+  Future<Database> _createDB() async {
     // Get Path
     String getPath = await getDatabasesPath();
     // Database Name

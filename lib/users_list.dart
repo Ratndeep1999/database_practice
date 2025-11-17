@@ -98,5 +98,8 @@ class _UsersListState extends State<UsersList> {
   }
 
   /// Method to Update User Data
-  void _updateUserData() {}
+  void _updateUserData() {
+    _getUsers();
+    Navigator.pop(context);
+  }
 }

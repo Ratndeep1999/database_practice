@@ -1,4 +1,5 @@
 import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
+import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:flutter/material.dart';
 import 'label_widget.dart';
 
@@ -27,6 +28,8 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   // Controllers
   late final TextEditingController userNameController;
   late final TextEditingController emailController;
+  // Database Service Object
+  DatabaseService dbService = DatabaseService();
 
   @override
   void initState() {
@@ -71,7 +74,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                 isSuffixIcon: false,
                 validation: _userNameValidation,
               ),
-              SizedBox(height: 18.0),
+              SizedBox(height: 25.0),
 
               /// Email Address Label
               LabelWidget(

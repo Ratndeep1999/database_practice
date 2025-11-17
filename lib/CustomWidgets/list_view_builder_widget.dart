@@ -11,8 +11,8 @@ class ListViewBuilderWidget extends StatelessWidget {
   });
 
   final List<Map<String, dynamic>> users;
-  final VoidCallback onEdit;
-  final VoidCallback onDelete;
+  final Function(int id) onEdit;
+  final Function(int id) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ListViewBuilderWidget extends StatelessWidget {
             children: [
               /// Edit Icon
               IconWidget(
-                iconPress: onEdit,
+                iconPress: () => onEdit(user[DatabaseService.kId]),
                 icon: Icons.edit,
                 iconSize: 20,
                 iconColor: Colors.black45,
@@ -51,7 +51,7 @@ class ListViewBuilderWidget extends StatelessWidget {
 
               /// Delete Icon
               IconWidget(
-                iconPress: onDelete,
+                iconPress: () => onDelete(user[DatabaseService.kId]),
                 icon: Icons.delete,
                 iconSize: 20,
                 iconColor: Colors.black45,

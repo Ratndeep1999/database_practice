@@ -6,7 +6,7 @@ class ButtonWidget extends StatelessWidget {
     required this.label,
     required this.buttonPress,
     this.icon,
-    this.buttonWidth
+    this.buttonWidth,
   });
 
   final String label;
@@ -22,7 +22,9 @@ class ButtonWidget extends StatelessWidget {
         onPressed: buttonPress,
         label: Text(label),
         icon: Icon(icon),
-        style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.orange.shade400,
+        ),
       ),
     );
   }

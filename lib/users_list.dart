@@ -1,3 +1,4 @@
+import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/icon_widget.dart';
@@ -40,11 +41,7 @@ class _UsersListState extends State<UsersList> {
       body: SafeArea(
         child: isLoading
             ? Center(
-                child: CircularProgressIndicator(
-                  color: Colors.orange,
-                  strokeWidth: 15.0,
-                  strokeAlign: 10.0,
-                ),
+                child: CircularIndicatorWidget(),
               )
             : usersList.isEmpty
             ? Center(

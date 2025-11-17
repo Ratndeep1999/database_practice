@@ -22,6 +22,8 @@ class UserEditBottomSheet extends StatefulWidget {
 }
 
 class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
+  // Form key
+  final _formKey = GlobalKey<FormState>();
   // Controllers
   late final TextEditingController userNameController;
   late final TextEditingController emailController;
@@ -37,83 +39,88 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// Edit User Data Label
-          Center(
-            child: LabelWidget(
-              label: 'Edit User Data',
-              fontSize: 20,
-              fontColor: Colors.orange,
-              letterSpacing: 2.0,
-            ),
-          ),
-          SizedBox(height: 20.0),
-
-          /// User Name Label
-          LabelWidget(
-            label: 'User Name',
-            fontSize: 18,
-            fontColor: Colors.black,
-            fontWeight: FontWeight.w400,
-          ),
-          SizedBox(height: 8.0),
-          InputTextFieldWidget(
-            controller: userNameController,
-            keyboardType: TextInputType.name,
-            isSuffixIcon: false,
-            onSaved: (value) {},
-            validation: _userNameValidation,
-          ),
-          SizedBox(height: 18.0),
-
-          /// Email Address Label
-          LabelWidget(
-            label: 'Email Address',
-            fontSize: 18,
-            fontColor: Colors.black,
-            fontWeight: FontWeight.w400,
-          ),
-          SizedBox(height: 8.0),
-          InputTextFieldWidget(
-            controller: emailController,
-            keyboardType: TextInputType.name,
-            isSuffixIcon: false,
-            onSaved: (value) {},
-            validation: _emailValidation,
-          ),
-          SizedBox(height: 50.0),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-
-            /// Button Section
-            child: Row(
-              children: [
-                /// Save Button
-                SizedBox(
-                  width: 150,
-                  child: ElevatedButton(
-                    onPressed: _updateUserDetails,
-                    child: Text("Save"),
-                  ),
+      child: SizedBox(
+        height: 550,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// Edit User Data Label
+              Center(
+                child: LabelWidget(
+                  label: 'Edit User Data',
+                  fontSize: 20,
+                  fontColor: Colors.orange,
+                  letterSpacing: 2.0,
                 ),
-                Spacer(),
+              ),
+              SizedBox(height: 20.0),
 
-                /// Cancel Button
-                SizedBox(
-                  width: 150,
-                  child: ElevatedButton(
-                    onPressed: _cancelUpdate,
-                    child: Text("Cancel"),
-                  ),
+              /// User Name Label
+              LabelWidget(
+                label: 'User Name',
+                fontSize: 18,
+                fontColor: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
+              SizedBox(height: 8.0),
+              InputTextFieldWidget(
+                controller: userNameController,
+                keyboardType: TextInputType.name,
+                isSuffixIcon: false,
+                onSaved: (value) {},
+                validation: _userNameValidation,
+              ),
+              SizedBox(height: 18.0),
+
+              /// Email Address Label
+              LabelWidget(
+                label: 'Email Address',
+                fontSize: 18,
+                fontColor: Colors.black,
+                fontWeight: FontWeight.w400,
+              ),
+              SizedBox(height: 8.0),
+              InputTextFieldWidget(
+                controller: emailController,
+                keyboardType: TextInputType.name,
+                isSuffixIcon: false,
+                onSaved: (value) {},
+                validation: _emailValidation,
+              ),
+              SizedBox(height: 50.0),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+                /// Button Section
+                child: Row(
+                  children: [
+                    /// Save Button
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: _updateUserDetails,
+                        child: Text("Save"),
+                      ),
+                    ),
+                    Spacer(),
+
+                    /// Cancel Button
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: _cancelUpdate,
+                        child: Text("Cancel"),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

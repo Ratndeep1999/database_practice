@@ -26,14 +26,11 @@ class UserEditBottomSheet extends StatefulWidget {
 class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   // Form key
   final _formKey = GlobalKey<FormState>();
-
   // Controllers
   late final TextEditingController _userNameController;
   late final TextEditingController _emailController;
-
   // Database Service Object
   DatabaseService dbService = DatabaseService();
-
   // Variable to show Circular indicator
   bool isSaving = false;
 
@@ -164,8 +161,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
     String? userName = value;
     if (userName == null || userName.isEmpty) return "Please Enter Username";
     if (userName.length < 4) return 'Name is Too Short';
-    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName))
-      return 'Please Enter Letters Only';
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName)) return 'Please Enter Letters Only';
     return null;
   }
 
@@ -173,8 +169,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   String? _emailValidation(String? value) {
     String? email = value?.trim().toLowerCase();
     if (email == null || email.isEmpty) return 'Please Enter Email Address';
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email))
-      return "Email address must contain '@' and '.com'";
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
     return null;
   }
 }

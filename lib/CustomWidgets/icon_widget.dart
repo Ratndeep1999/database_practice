@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class IconWidget extends StatelessWidget {
   const IconWidget({
     super.key,
-    required this.iconPress,
-    required this.icon,
+    this.iconPress,
+    this.icon,
     this.iconSize,
     this.iconColor,
   });
 
-  final VoidCallback iconPress;
-  final IconData icon;
+  final VoidCallback? iconPress;
+  final IconData? icon;
   final double? iconSize;
   final Color? iconColor;
 

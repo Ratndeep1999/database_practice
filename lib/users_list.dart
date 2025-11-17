@@ -78,6 +78,7 @@ class _UsersListState extends State<UsersList> {
                             iconSize: 20,
                             iconColor: Colors.black45,
                           ),
+                          SizedBox(width: 8.0,),
                           /// Edit Icon
                           IconWidget(
                             iconPress: _deleteIconPress,
@@ -117,10 +118,8 @@ class _UsersListState extends State<UsersList> {
   }
 
   /// Edit Icon Functionality
-  void _editIconPress() {
-  }
+  void _editIconPress() {}
 
   /// Delete Icon Functionality
-  void _deleteIconPress() {
-  }
+  void _deleteIconPress() {}
 }

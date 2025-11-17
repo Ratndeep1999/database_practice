@@ -1,4 +1,5 @@
 import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
+import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
 import 'package:database_practice/CustomWidgets/list_view_builder_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +100,7 @@ class _UsersListState extends State<UsersList> {
                   letterSpacing: 2.0,
                 ),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
 
               /// User Name Label
               LabelWidget(
@@ -108,6 +109,20 @@ class _UsersListState extends State<UsersList> {
                 fontColor: Colors.black,
                 fontWeight: FontWeight.w400,
               ),
+              SizedBox(height: 8.0),
+              InputTextFieldWidget(
+                  controller: userName,
+                  keyboardType: keyboardType,
+                  isSuffixIcon: isSuffixIcon,
+                  obscureText: obscureText,
+                  hintLabel: hintLabel,
+                  onSaved: onSaved,
+                  validation: validation,
+                  focusNode: focusNode
+              ),
+              SizedBox(height: 15.0,),
+
+
             ],
           ),
         ),

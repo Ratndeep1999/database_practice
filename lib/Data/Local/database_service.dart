@@ -85,11 +85,22 @@ class DatabaseService {
 
   /// Update User
   Future<void> updateUserData({
+    required int? id,
     required String? userName,
     required String? emailId,
   }) async {
     final Database db = await database;
-    db.update(kTableName, {kUserName: userName, kEmailId: emailId});
+    db.update(
+      kTableName,
+      {kUserName: userName, kEmailId: emailId},
+      where: '$kId = ?',
+      whereArgs: [id],
+    );
   }
 
+  /// Delete User
+  Future<void> deleteUser({required int id}) async {
+    final Database db = await database;
+    db.delete(kTableName);
+  }
 }

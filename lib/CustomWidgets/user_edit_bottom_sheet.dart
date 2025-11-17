@@ -29,8 +29,8 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   @override
   void initState() {
     super.initState();
-    userNameController = TextEditingController();
-    emailController = TextEditingController();
+    userNameController = TextEditingController(text: widget.oldName);
+    emailController = TextEditingController(text: widget.oldEmail);
   }
 
   @override

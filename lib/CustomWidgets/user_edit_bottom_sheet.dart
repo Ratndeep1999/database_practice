@@ -69,7 +69,6 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                 controller: userNameController,
                 keyboardType: TextInputType.name,
                 isSuffixIcon: false,
-                onSaved: (value) {},
                 validation: _userNameValidation,
               ),
               SizedBox(height: 18.0),
@@ -86,7 +85,6 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                 controller: emailController,
                 keyboardType: TextInputType.name,
                 isSuffixIcon: false,
-                onSaved: (value) {},
                 validation: _emailValidation,
               ),
               SizedBox(height: 50.0),
@@ -126,7 +124,11 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   }
 
   /// Method to Update User Details
-  void _updateUserDetails() {}
+  void _updateUserDetails() {
+    if (_formKey.currentState!.validate()) {
+
+    }
+  }
 
   /// Method to Cancel
   void _cancelUpdate() {

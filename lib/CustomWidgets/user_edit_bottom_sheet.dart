@@ -25,17 +25,19 @@ class UserEditBottomSheet extends StatefulWidget {
 class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   // Form key
   final _formKey = GlobalKey<FormState>();
+
   // Controllers
-  late final TextEditingController userNameController;
-  late final TextEditingController emailController;
+  late final TextEditingController _userNameController;
+  late final TextEditingController _emailController;
+
   // Database Service Object
   DatabaseService dbService = DatabaseService();
 
   @override
   void initState() {
     super.initState();
-    userNameController = TextEditingController(text: widget.oldName);
-    emailController = TextEditingController(text: widget.oldEmail);
+    _userNameController = TextEditingController(text: widget.oldName);
+    _emailController = TextEditingController(text: widget.oldEmail);
   }
 
   @override
@@ -69,7 +71,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
               ),
               SizedBox(height: 8.0),
               InputTextFieldWidget(
-                controller: userNameController,
+                controller: _userNameController,
                 keyboardType: TextInputType.name,
                 isSuffixIcon: false,
                 validation: _userNameValidation,
@@ -85,7 +87,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
               ),
               SizedBox(height: 8.0),
               InputTextFieldWidget(
-                controller: emailController,
+                controller: _emailController,
                 keyboardType: TextInputType.name,
                 isSuffixIcon: false,
                 validation: _emailValidation,
@@ -129,7 +131,11 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   /// Method to Update User Details
   void _updateUserDetails() {
     if (_formKey.currentState!.validate()) {
-
+      dbService.updateUserData(
+        id: widget.id,
+        userName: _userNameController.text,
+        emailId: _emailController.text,
+      );
     }
   }
 
@@ -143,7 +149,8 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
     String? userName = value;
     if (userName == null || userName.isEmpty) return "Please Enter Username";
     if (userName.length < 4) return 'Name is Too Short';
-    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName)) return 'Please Enter Letters Only';
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName))
+      return 'Please Enter Letters Only';
     return null;
   }
 
@@ -151,7 +158,8 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   String? _emailValidation(String? value) {
     String? email = value?.trim().toLowerCase();
     if (email == null || email.isEmpty) return 'Please Enter Email Address';
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email))
+      return "Email address must contain '@' and '.com'";
     return null;
   }
 }

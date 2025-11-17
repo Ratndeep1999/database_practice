@@ -75,12 +75,38 @@ class _UsersListState extends State<UsersList> {
 
   /// Edit Icon Functionality
   Future<void> _editIconPress(int id, String userName, String emailId) async {
-    await dbService.updateUserData(
-      id: id,
-      userName: userName,
-      emailId: emailId,
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (c) => SizedBox(
+        width: double.infinity,
+        height: 500,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// Edit User Data Label
+              Center(
+                child: LabelWidget(
+                  label: 'Edit User Data',
+                  fontSize: 20,
+                  fontColor: Colors.orange,
+                  letterSpacing: 2.0,
+                ),
+              ),
+              SizedBox(height: 10.0),
+
+
+            ],
+          ),
+        ),
+      ),
     );
-    _getUsers();
   }
 
   /// Delete Icon Functionality

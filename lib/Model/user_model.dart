@@ -1,3 +1,5 @@
+import 'package:database_practice/Data/Local/database_service.dart';
+
 class UserModel {
   // Parameters
   final int? id;
@@ -14,4 +16,15 @@ class UserModel {
     required this.password,
     required this.confPassword,
   });
+
+  /// toMap Method to return Object to Map (Insertions)
+  Map<String, dynamic> toMap(){
+    return {
+      DatabaseService.kId : id,
+      DatabaseService.kUserName : userName,
+      DatabaseService.kEmailId : emailId,
+      DatabaseService.kPassword : password,
+      DatabaseService.kConformPassword : confPassword
+    }
+  }
 }

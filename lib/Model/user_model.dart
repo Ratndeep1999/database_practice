@@ -1,4 +1,4 @@
-class UserModel{
+class UserModel {
   // Parameters
   final int? id;
   final String userName;
@@ -6,5 +6,12 @@ class UserModel{
   final String password;
   final String confPassword;
 
-
+  // Constructor
+  UserModel({
+    this.id,
+    required this.userName,
+    required this.emailId,
+    required this.password,
+    required this.confPassword,
+  });
 }

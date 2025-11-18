@@ -18,13 +18,24 @@ class UserModel {
   });
 
   /// toMap Method to return Object to Map (Insertions)
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      DatabaseService.kId : id,
-      DatabaseService.kUserName : userName,
-      DatabaseService.kEmailId : emailId,
-      DatabaseService.kPassword : password,
-      DatabaseService.kConformPassword : confPassword
-    }
+      DatabaseService.kId: id,
+      DatabaseService.kUserName: userName,
+      DatabaseService.kEmailId: emailId,
+      DatabaseService.kPassword: password,
+      DatabaseService.kConformPassword: confPassword,
+    };
+  }
+
+  /// fromMap Method to return Map to Object (Fetching)
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map[DatabaseService.kId],
+      userName: map[DatabaseService.kUserName],
+      emailId: map[DatabaseService.kEmailId],
+      password: map[DatabaseService.kPassword],
+      confPassword: map[DatabaseService.kConformPassword],
+    );
   }
 }

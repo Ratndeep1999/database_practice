@@ -17,3 +17,9 @@ samples, guidance on mobile development, and a full API reference.
 
 # App Pages
 ![SigningPage](assets/images/signing_page.png)
+![SigningPageValidation](assets/images/signing_page_validation.png)
+![SignupPage](assets/images/signup_page.png)
+![SignipPageValidation](assets/images/signup_page_validation.png)
+![SignupPageFilled](assets/images/signup_page_filled.png)
+![UsersData](assets/images/user_data.png)
+![EditUserData](assets/images/edit_user_data.png)

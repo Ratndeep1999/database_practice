@@ -1,6 +1,6 @@
 # database_practice
 
-Project to Prectice database (SQFlite)
+Project to Practice database (SQFLite)
 
 ## Getting Started
 

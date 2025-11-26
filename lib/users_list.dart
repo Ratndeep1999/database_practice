@@ -75,7 +75,7 @@ class _UsersListState extends State<UsersList> {
   }
 
   /// Edit Icon Functionality
-  Future<void> _editIconPress(int id, String userName, String emailId) async {
+  Future<void> _editIconPress({int? id, String? userName, String? emailId}) async {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -83,16 +83,16 @@ class _UsersListState extends State<UsersList> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (c) => UserEditBottomSheet(
-        id: id,
-        oldName: userName,
-        oldEmail: emailId,
+        id: id!,
+        oldName: userName!,
+        oldEmail: emailId!,
         onUpdateUser: _updateUserData,
       ),
     );
   }
 
   /// Method To Delete User From Database
-  Future<void> _deleteIconPress(int id) async {
+  Future<void> _deleteIconPress({required int id}) async {
     /// Database Service Class Method to Delete User Data
     await dbService.deleteUser(id: id);
     _getUsers();

@@ -11,8 +11,8 @@ class ListViewBuilderWidget extends StatelessWidget {
   });
 
   final List<Map<String, dynamic>> users;
-  final Function(int id, String userName, String emailId) onEdit;
-  final Function(int id) onDelete;
+  final Function({int? id, String? userName, String? emailId}) onEdit;
+  final Function({required int id}) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +44,9 @@ class ListViewBuilderWidget extends StatelessWidget {
             /// Edit Icon
             IconWidget(
               iconPress: () => onEdit(
-                user[DatabaseService.kId],
-                user[DatabaseService.kUserName],
-                user[DatabaseService.kEmailId],
+                id: user[DatabaseService.kId],
+                userName: user[DatabaseService.kUserName],
+                emailId: user[DatabaseService.kEmailId],
               ),
               icon: Icons.edit,
               iconSize: 20,
@@ -56,7 +56,7 @@ class ListViewBuilderWidget extends StatelessWidget {
 
             /// Delete Icon
             IconWidget(
-              iconPress: () => onDelete(user[DatabaseService.kId]),
+              iconPress: () => onDelete(id: user[DatabaseService.kId]),
               icon: Icons.delete,
               iconSize: 20,
               iconColor: Colors.black45,

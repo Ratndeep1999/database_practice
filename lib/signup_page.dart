@@ -338,7 +338,6 @@ class _SignupPageState extends State<SignupPage> {
       emailId: _email,
       userName: _name,
       password: _password,
-      conformPassword: _confPassword,
     );
   }
 

@@ -258,6 +258,11 @@ class _SignupPageState extends State<SignupPage> {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      // Check password and confPassword
+      if (_passwordController.text != _confPasswordController.text) {
+        _showSnackBar('Password and Confirm Password do not match');
+        return;
+      }
       _savedDetails();
       // _navigateToLoginPage();
       _saveUserDataToDB();
@@ -345,5 +350,17 @@ class _SignupPageState extends State<SignupPage> {
   /// Temporary method to Navigate to Home Page 
   void _navigateToHomePage() {
     Navigator.of(context).push(MaterialPageRoute(builder: (_)=>UsersList()));
+  }
+
+  /// Snack Bar
+  Future<void> _showSnackBar(String label) async {
+    final controller = ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(label, style: TextStyle(fontSize: 16)),
+        backgroundColor: Colors.orange,
+        duration: Duration(seconds: 2),
+      ),
+    );
+    await controller.closed;
   }
 }

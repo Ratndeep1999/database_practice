@@ -19,7 +19,6 @@ class DatabaseService {
   static const String kUserName = "UserName";
   static const String kEmailId = "Email_Id";
   static const String kPassword = "Password";
-  static const String kConformPassword = "Conform_Password";
 
   /// Database Object
   static Database? _database;
@@ -51,8 +50,7 @@ class DatabaseService {
           $kId INTEGER PRIMARY KEY AUTOINCREMENT,
           $kUserName TEXT,
           $kEmailId TEXT UNIQUE,
-          $kPassword TEXT,
-          $kConformPassword TEXT
+          $kPassword TEXT
           );
           ''');
       },
@@ -65,7 +63,6 @@ class DatabaseService {
     required String? userName,
     required String? emailId,
     required String? password,
-    required String? conformPassword,
   }) async {
     final Database db = await database;
     // Method that insert user
@@ -73,7 +70,6 @@ class DatabaseService {
       kUserName: userName,
       kEmailId: emailId,
       kPassword: password,
-      kConformPassword: conformPassword,
     });
   }
 

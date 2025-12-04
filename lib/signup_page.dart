@@ -257,12 +257,13 @@ class _SignupPageState extends State<SignupPage> {
   void _createAccount() {
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+
       // Check password and confPassword
       if (_passwordController.text != _confPasswordController.text) {
         _showSnackBar('Password and Confirm Password do not match');
         return;
       }
+      _formKey.currentState!.save();
       _savedDetails();
       // _navigateToLoginPage();
       _saveUserDataToDB();

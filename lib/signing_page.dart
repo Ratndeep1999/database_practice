@@ -49,8 +49,8 @@ class _SigningPageState extends State<SigningPage> {
 
   // Method to dispose FocusNodes
   void _disposeFocusNodes(){
-    _emailController.dispose();
-    _passwordController.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
   }
 
   @override

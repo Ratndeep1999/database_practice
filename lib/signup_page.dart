@@ -154,7 +154,7 @@ class _SignupPageState extends State<SignupPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       isSuffixIcon: true,
-                      obscureText: !_isPasswordVisible,
+                      obscureText: false,
                       suffixIcon: Icons.email,
                       hintLabel: 'Enter Your Email Address',
                       onSaved: (email) {

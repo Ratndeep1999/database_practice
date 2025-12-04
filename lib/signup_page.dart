@@ -222,9 +222,6 @@ class _SignupPageState extends State<SignupPage> {
                       onChange: _onChangedConfPassword,
                       obscureText: false,
                       hintLabel: 'Enter Password Again',
-                      onSaved: (confPassword) {
-                        _confPassword = confPassword;
-                      },
                       validation: _confPasswordValidation,
                       focusNode: _confPasswordNode,
                       nextFocus: null,

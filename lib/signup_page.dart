@@ -255,6 +255,7 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Create Account Logic
   void _createAccount() {
+    FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _savedDetails();

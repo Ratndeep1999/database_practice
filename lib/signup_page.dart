@@ -16,73 +16,54 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   DatabaseService dbService = DatabaseService();
 
-  // Controllers
+  /// Controllers
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final TextEditingController _confPasswordController;
 
-  // Initialize controllers
-  void initControllers() {
-    _nameController = TextEditingController();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _confPasswordController = TextEditingController();
-  }
-
-  // Dispose controllers
-  void disposeControllers() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confPasswordController.dispose();
-  }
-
-  // Focus Nodes
+  /// Focus Nodes
   late final FocusNode _nameNode;
   late final FocusNode _emailNode;
   late final FocusNode _passwordNode;
   late final FocusNode _confPasswordNode;
 
-  // Initialize Nodes
-  void initFocusNodes() {
+  /// FormKey
+  final _formKey = GlobalKey<FormState>();
+
+  bool _isPasswordVisible = true;
+  bool _isPassConfPassSame = false;
+  String? _name;
+  String? _email;
+  String? _password;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confPasswordController = TextEditingController();
+
     _nameNode = FocusNode();
     _emailNode = FocusNode();
     _passwordNode = FocusNode();
     _confPasswordNode = FocusNode();
   }
 
-  // Dispose Nodes
-  void disposeFocusNodes() {
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confPasswordController.dispose();
+
     _nameNode.dispose();
     _emailNode.dispose();
     _passwordNode.dispose();
     _confPasswordNode.dispose();
-  }
 
-  // Variables
-  String? _name;
-  String? _email;
-  String? _password;
-  String? _confPassword;
-  bool _isPasswordVisible = true;
-  bool _isPassConfPassSame = false;
-
-  // FormKey
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-    initControllers();
-    initFocusNodes();
-  }
-
-  @override
-  void dispose() {
-    disposeControllers();
-    disposeFocusNodes();
-    _clearControllers();
     super.dispose();
   }
 
@@ -129,9 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                       isSuffixIcon: true,
                       obscureText: false,
                       hintLabel: 'Enter Your Name',
-                      onSaved: (name) {
-                        _name = name;
-                      },
+                      onSaved: (name) => _name = name!.trim(),
                       validation: _userNameValidation,
                       focusNode: _nameNode,
                       nextFocus: _emailNode,
@@ -157,9 +136,7 @@ class _SignupPageState extends State<SignupPage> {
                       obscureText: false,
                       suffixIcon: Icons.email,
                       hintLabel: 'Enter Your Email Address',
-                      onSaved: (email) {
-                        _email = email;
-                      },
+                      onSaved: (email) => _email = email!.trim().toLowerCase(),
                       validation: _emailValidation,
                       focusNode: _emailNode,
                       nextFocus: _passwordNode,
@@ -184,14 +161,12 @@ class _SignupPageState extends State<SignupPage> {
                       suffixIcon: _isPasswordVisible
                           ? Icons.visibility
                           : Icons.visibility_off,
-                      suffixTap: () => setState(() {
-                        (_isPasswordVisible = !_isPasswordVisible);
-                      }),
+                      suffixTap: () => setState(
+                        () => (_isPasswordVisible = !_isPasswordVisible),
+                      ),
                       obscureText: !_isPasswordVisible,
                       hintLabel: 'Enter Your Password',
-                      onSaved: (password) {
-                        _password = password;
-                      },
+                      onSaved: (password) => _password = password,
                       validation: _passwordValidation,
                       focusNode: _passwordNode,
                       nextFocus: _confPasswordNode,
@@ -254,103 +229,37 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   /// Create Account Logic
-  void _createAccount() {
+  Future<void> _createAccount() async {
     FocusScope.of(context).unfocus();
-    if (_formKey.currentState!.validate()) {
 
-      // Check password and confPassword
-      if (_passwordController.text != _confPasswordController.text) {
-        _showSnackBar('Password and Confirm Password do not match');
-        return;
-      }
-      _formKey.currentState!.save();
-      _savedDetails();
-      // _navigateToLoginPage();
-      _saveUserDataToDB();
-      _navigateToHomePage();
+    if (!_formKey.currentState!.validate()) return;
+
+    if (_passwordController.text != _confPasswordController.text) {
+      _showSnackBar('Password and Confirm Password do not match');
+      return;
     }
-  }
+    _formKey.currentState!.save();
 
-  /// Method to Clear Controllers
-  void _clearControllers(){
-    _nameController.clear();
-    _emailController.clear();
-    _passwordController.clear();
-    _confPasswordController.clear();
-  }
-
-  /// Method to Check Saved Values
-  void _savedDetails() {
+    /// _savedDetails();
     debugPrint('Full Name : $_name');
     debugPrint('Email : $_email');
     debugPrint('Password : $_password');
-    debugPrint('Conform Password : $_confPassword');
-  }
 
-  /// Navigate To Login Screen
-  void _navigateToLoginPage() {
-    Navigator.of(context).popUntil((route) => route.isFirst);
+    /// Save Data to Database
+    await dbService.insertUser(
+      userName: _name!,
+      email: _email!,
+      password: _password!,
+    );
+
+    if (!mounted) return;
+
+    Navigator.push(context, MaterialPageRoute(builder: (_) => UsersList()));
   }
 
   /// Check Password and Conf-Password same or Not
-  void _onChangedConfPassword(String confPassword) {
-    setState(() {
-      _isPassConfPassSame = (_passwordController.text == confPassword)
-          ? true
-          : false;
-    });
-  }
-
-  /// UserName Validation
-  String? _userNameValidation(String? value) {
-    String? userName = value;
-    if (userName == null || userName.isEmpty) return "Please Enter Username";
-    if (userName.length < 4) return 'Name is Too Short';
-    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName)) return 'Please Enter Letters Only';
-    return null;
-  }
-
-  /// Email Validation
-  String? _emailValidation(String? value) {
-    String? email = value?.trim().toLowerCase();
-    if (email == null || email.isEmpty) return 'Please Enter Email Address';
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
-    return null;
-  }
-
-  /// Password Validation
-  String? _passwordValidation(String? value) {
-    String? password = value;
-    if (password == null || password.isEmpty) return 'Please Enter Password';
-    if (password.length < 8) return 'Password must be at least 8 characters';
-    if (password.contains(' ')) return 'Space is Not Allowed';
-    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Must contain uppercase letter";
-    if (!RegExp(r'[a-z]').hasMatch(password)) return "Must contain lowercase letter";
-    if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Must contain one special character (!@#\$&*~_)";
-    return null;
-  }
-
-  /// Conform Password Validation
-  String? _confPasswordValidation(String? confPassword) {
-    if (confPassword == null || confPassword.isEmpty) return 'Please Enter Conform Password';
-    if (_isPassConfPassSame == false) return 'Password And Conform Password is Not Same';
-    return null;
-  }
-
-  /// Method To Save User into Database
-  Future<void> _saveUserDataToDB() async {
-    /// Database Service Class Method to Save User Data
-    await dbService.insertUser(
-      emailId: _email,
-      userName: _name,
-      password: _password,
-    );
-  }
-
-  /// Temporary method to Navigate to Home Page 
-  void _navigateToHomePage() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_)=>UsersList()));
+  void _onChangedConfPassword(String value) {
+    _isPassConfPassSame = (_passwordController.text == value) ? true : false;
   }
 
   /// Snack Bar
@@ -363,5 +272,49 @@ class _SignupPageState extends State<SignupPage> {
       ),
     );
     await controller.closed;
+  }
+
+  /// UserName Validation
+  String? _userNameValidation(String? value) {
+    String? userName = value;
+    if (userName == null || userName.isEmpty) return "Please Enter Username";
+    if (userName.length < 4) return 'Name is Too Short';
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName))
+      return 'Please Enter Letters Only';
+    return null;
+  }
+
+  /// Email Validation
+  String? _emailValidation(String? value) {
+    String? email = value?.trim().toLowerCase();
+    if (email == null || email.isEmpty) return 'Please Enter Email Address';
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email))
+      return "Email address must contain '@' and '.com'";
+    return null;
+  }
+
+  /// Password Validation
+  String? _passwordValidation(String? value) {
+    String? password = value;
+    if (password == null || password.isEmpty) return 'Please Enter Password';
+    if (password.length < 8) return 'Password must be at least 8 characters';
+    if (password.contains(' ')) return 'Space is Not Allowed';
+    if (!RegExp(r'[A-Z]').hasMatch(password))
+      return "Must contain uppercase letter";
+    if (!RegExp(r'[a-z]').hasMatch(password))
+      return "Must contain lowercase letter";
+    if (!RegExp(r'[0-9]').hasMatch(password)) return "Must contain a number";
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
+      return "Must contain one special character (!@#\$&*~_)";
+    return null;
+  }
+
+  /// Conform Password Validation
+  String? _confPasswordValidation(String? confPassword) {
+    if (confPassword == null || confPassword.isEmpty)
+      return 'Please Enter Conform Password';
+    if (_isPassConfPassSame == false)
+      return 'Password And Conform Password is Not Same';
+    return null;
   }
 }

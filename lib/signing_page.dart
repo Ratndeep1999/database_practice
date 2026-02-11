@@ -2,10 +2,11 @@ import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
 import 'package:database_practice/forget_password.dart';
 import 'package:database_practice/signup_page.dart';
-import 'package:database_practice/users_list.dart';
+import 'package:database_practice/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/input_text_field_widget.dart';
 import 'CustomWidgets/label_widget.dart';
+import 'Data/Local/database_service.dart';
 
 class SigningPage extends StatefulWidget {
   const SigningPage({super.key});
@@ -15,62 +16,45 @@ class SigningPage extends StatefulWidget {
 }
 
 class _SigningPageState extends State<SigningPage> {
+  late final DatabaseService dbService;
 
-  // Form key
-  final _formKey = GlobalKey<FormState>();
-  // Controllers
-  late final TextEditingController _emailController ;
+  /// Controllers
+  late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
-  // Focus nodes
+
+  /// FocusNodes
   late final FocusNode _emailFocus;
   late final FocusNode _passwordFocus;
-  // Parameters
+
+  /// Form key
+  final _formKey = GlobalKey<FormState>();
+
   bool _isPasswordVisible = false;
   String? _email;
   String? _password;
 
-  // Method to initialize Controller
-  void _initController(){
+  @override
+  void initState() {
+    super.initState();
+    dbService = DatabaseService();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-  }
-
-  // Method to dispose Controller
-  void _disposeController(){
-    _emailController.dispose();
-    _passwordController.dispose();
-  }
-
-  // Method to initialize FocusNodes
-  void _initFocusNodes(){
     _emailFocus = FocusNode();
     _passwordFocus = FocusNode();
   }
 
-  // Method to dispose FocusNodes
-  void _disposeFocusNodes(){
-    _emailFocus.dispose();
-    _passwordFocus.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _initController();
-    _initFocusNodes();
-  }
-
   @override
   void dispose() {
-    _disposeController();
-    _disposeFocusNodes();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _emailFocus.dispose();
+    _passwordFocus.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Appbar
       appBar: AppBar(
         title: LabelWidget(
           label: "Signing Page",
@@ -93,7 +77,7 @@ class _SigningPageState extends State<SigningPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 120.0),
-              
+
                     /// Email label
                     LabelWidget(
                       label: 'Email Address',
@@ -102,7 +86,7 @@ class _SigningPageState extends State<SigningPage> {
                       fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 18.0),
-              
+
                     /// Text field for Email
                     InputTextFieldWidget(
                       hintLabel: 'Enter your Email id',
@@ -110,9 +94,7 @@ class _SigningPageState extends State<SigningPage> {
                       suffixIcon: Icons.email,
                       isSuffixIcon: true,
                       obscureText: false,
-                      onSaved: (email) {
-                        _email = email;
-                      },
+                      onSaved: (email) => _email = email!.trim().toLowerCase(),
                       validation: _emailValidation,
                       keyboardType: TextInputType.emailAddress,
                       autoFillHints: [AutofillHints.email],
@@ -120,7 +102,7 @@ class _SigningPageState extends State<SigningPage> {
                       focusNode: _emailFocus,
                     ),
                     SizedBox(height: 50.0),
-              
+
                     /// Password label
                     LabelWidget(
                       label: 'Password',
@@ -129,7 +111,7 @@ class _SigningPageState extends State<SigningPage> {
                       fontWeight: FontWeight.w400,
                     ),
                     SizedBox(height: 18.0),
-              
+
                     /// Text field for Password
                     InputTextFieldWidget(
                       hintLabel: 'Enter your Password',
@@ -138,14 +120,11 @@ class _SigningPageState extends State<SigningPage> {
                           ? Icons.visibility
                           : Icons.visibility_off,
                       isSuffixIcon: true,
-                      suffixTap: () {
-                        _isPasswordVisible = !_isPasswordVisible;
-                        setState(() {});
-                      },
+                      suffixTap: () => setState(
+                        () => _isPasswordVisible = !_isPasswordVisible,
+                      ),
                       obscureText: !_isPasswordVisible,
-                      onSaved: (password) {
-                        _password = password;
-                      },
+                      onSaved: (password) => _password = password,
                       validation: _passwordValidation,
                       keyboardType: TextInputType.visiblePassword,
                       autoFillHints: [AutofillHints.password],
@@ -153,18 +132,29 @@ class _SigningPageState extends State<SigningPage> {
                       nextFocus: null,
                     ),
                     SizedBox(height: 60.0),
-              
+
                     /// Login Button
-                    ButtonWidget(label: "Login", buttonPress: _loginPress, icon: Icons.login,),
+                    ButtonWidget(
+                      label: "Login",
+                      buttonPress: _loginPress,
+                      icon: Icons.login,
+                    ),
                     SizedBox(height: 30.0),
-              
+
                     Row(
                       children: [
                         /// SignUp Text
-                        ClickableTextWidget(click: _navigateToSignupPage, label: 'Create Account'),
+                        ClickableTextWidget(
+                          click: _navigateToSignupPage,
+                          label: 'Create Account',
+                        ),
                         Spacer(),
+
                         /// ForgetPassword Text
-                        ClickableTextWidget(click: _navigateToForgetPasswordPage, label: 'Forget Password'),
+                        ClickableTextWidget(
+                          click: _navigateToForgetPasswordPage,
+                          label: 'Forget Password',
+                        ),
                       ],
                     ),
                   ],
@@ -177,42 +167,46 @@ class _SigningPageState extends State<SigningPage> {
     );
   }
 
-  /// Email Validation method
-  String? _emailValidation(String? value) {
-    String? email = value?.trim().toLowerCase();
-    if (email == null || email.isEmpty) return 'Please enter Email';
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
-    return null;
-  }
-
-  /// Password Validation method
-  String? _passwordValidation(String? value) {
-    String? password = value?.trim();
-    if (password == null || password.isEmpty) return 'Enter your Password';
-    if (password.length < 8) return "Password must be at least 8 characters";
-    // at least one Uppercase char must
-    if (!RegExp(r'[A-Z]').hasMatch(password)) return "Password must contain at least one uppercase letter";
-    // at least one Lowercase char must
-    if (!RegExp(r'[a-z]').hasMatch(password)) return "Password must contain at least one lowercase letter";
-    // at least one numeric char must
-    if (!RegExp(r'[0-9]').hasMatch(password)) return "Password must contain at least one number";
-    // at least one special char must
-    if (!RegExp(r'[!@\$&*~_]').hasMatch(password)) return "Password must contain at least one special character (!@#\$&*~_)";
-    return null;
-  }
-
   /// Login Button Functionality
   Future<void> _loginPress() async {
     FocusScope.of(context).unfocus();
-    // form validation check
-    if (_formKey.currentState!.validate()) {
-      // called onSave method of each text field
-      _formKey.currentState!.save();
-      // shoe snack bar for 3 sec
-      await _showSnackBar('Login Please Wait....');
-      // navigate to next page
-      _navigateToNextPage();
+
+    if (!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
+
+    /// Check id Data exist in Database
+    final user = await dbService.loginUser(
+      email: _email!,
+      password: _password!,
+    );
+    if (!mounted) return;
+
+    if (user == null) {
+      await _showSnackBar("Invalid email or password");
+      return;
     }
+
+    await Future.delayed(const Duration(seconds: 1));
+    await _showSnackBar('Login Please Wait....');
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const DashboardPage()),
+    );
+  }
+
+  /// Navigate to Signup Page
+  void _navigateToSignupPage() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => SignupPage()));
+  }
+
+  /// Navigate to Forget Password Page
+  void _navigateToForgetPasswordPage() {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (context) => ForgetPassword()));
   }
 
   /// Scaffold Messenger
@@ -232,22 +226,32 @@ class _SigningPageState extends State<SigningPage> {
     await controller.closed;
   }
 
-  /// Navigate to UsersList page
-  void _navigateToNextPage() {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context)=> UsersList(),
-      ),
-    );
+  /// Email Validation method
+  String? _emailValidation(String? value) {
+    String? email = value?.trim().toLowerCase();
+    if (email == null || email.isEmpty) return 'Please enter Email';
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email))
+      return "Email address must contain '@' and '.com'";
+    return null;
   }
 
-  /// Navigate to Signup Page
-  void _navigateToSignupPage() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignupPage()));
-  }
-
-  /// Navigate to Forget Password Page
-  void _navigateToForgetPasswordPage() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ForgetPassword()));
+  /// Password Validation method
+  String? _passwordValidation(String? value) {
+    String? password = value?.trim();
+    if (password == null || password.isEmpty) return 'Enter your Password';
+    if (password.length < 8) return "Password must be at least 8 characters";
+    // at least one Uppercase char must
+    if (!RegExp(r'[A-Z]').hasMatch(password))
+      return "Password must contain at least one uppercase letter";
+    // at least one Lowercase char must
+    if (!RegExp(r'[a-z]').hasMatch(password))
+      return "Password must contain at least one lowercase letter";
+    // at least one numeric char must
+    if (!RegExp(r'[0-9]').hasMatch(password))
+      return "Password must contain at least one number";
+    // at least one special char must
+    if (!RegExp(r'[!@\$&*~_]').hasMatch(password))
+      return "Password must contain at least one special character (!@#\$&*~_)";
+    return null;
   }
 }

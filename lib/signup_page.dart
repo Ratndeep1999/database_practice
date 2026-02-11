@@ -2,7 +2,6 @@ import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
 import 'package:database_practice/CustomWidgets/input_text_field_widget.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
-import 'package:database_practice/users_list.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
 
@@ -254,12 +253,13 @@ class _SignupPageState extends State<SignupPage> {
 
     if (!mounted) return;
 
-    Navigator.push(context, MaterialPageRoute(builder: (_) => UsersList()));
+    Navigator.pop(context);
   }
 
   /// Check Password and Conf-Password same or Not
   void _onChangedConfPassword(String value) {
-    _isPassConfPassSame = (_passwordController.text == value) ? true : false;
+    setState(
+      () => _isPassConfPassSame = (_passwordController.text == value) ? true : false,);
   }
 
   /// Snack Bar

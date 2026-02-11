@@ -1,5 +1,4 @@
-import 'package:database_practice/signing_page.dart';
-import 'package:database_practice/users_list.dart';
+import 'package:database_practice/splash_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SigningPage(),
+      home: const SplashPage(),
     );
   }
 }

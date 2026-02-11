@@ -2,101 +2,128 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
-  // Singleton pattern
-  static final DatabaseService _instance = DatabaseService.internal();
-
+  /// Singleton pattern
   DatabaseService.internal();
 
-  factory DatabaseService() {
-    return _instance;
-  }
+  static final DatabaseService _instance = DatabaseService.internal();
 
-  // Parameters
-  // static const String kDatabaseName = "users.db";
-  // static const int kDatabaseVersion = 1;
-  static const String kTableName = "users";
-  static const String kId = "ID";
-  static const String kUserName = "UserName";
-  static const String kEmailId = "Email_Id";
-  static const String kPassword = "Password";
+  factory DatabaseService() => _instance;
 
-  /// Database Object
+  /// Database object
   static Database? _database;
 
-  /// get method to initialize Database
+  /// Database config
+  static const String _dbName = 'users.db';
+  static const int _dbVersion = 1;
+
+  /// Table & columns
+  static const String tableUsers = 'users';
+  static const String columnId = 'id';
+  static const String columnUserName = 'username';
+  static const String columnEmail = 'email';
+  static const String columnPassword = 'password';
+
+  /// Database getter
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _createDB();
+    _database = await _initDatabase();
     return _database!;
   }
 
-  /// Create Database
-  Future<Database> _createDB() async {
-    // Get Path
-    String getPath = await getDatabasesPath();
-    // Database Name
-    const String dbName = "users.db";
-    // Get path of Database
-    String path = join(getPath, dbName);
+  /// Initialize database
+  Future<Database> _initDatabase() async {
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, _dbName);
 
-    // Method that open database
-    Database openDB = await openDatabase(
+    return openDatabase(
       path,
-      version: 1,
-      onCreate: (Database db, int version) async {
-        /// Sql query that creates database table
-        await db.execute('''
-          CREATE TABLE $kTableName (
-          $kId INTEGER PRIMARY KEY AUTOINCREMENT,
-          $kUserName TEXT,
-          $kEmailId TEXT UNIQUE,
-          $kPassword TEXT
-          );
-          ''');
-      },
+      version: _dbVersion,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
-    return openDB;
   }
 
-  /// Insert User
-  Future<void> insertUser({
-    required String? userName,
-    required String? emailId,
-    required String? password,
+  /// Create tables
+  Future<void> _onCreate(Database db, int version) async {
+    await db.execute('''
+      CREATE TABLE $tableUsers (
+        $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+        $columnUserName TEXT NOT NULL,
+        $columnEmail TEXT NOT NULL UNIQUE,
+        $columnPassword TEXT NOT NULL
+      )
+    ''');
+  }
+
+  /// Database migrations (future use)
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // handle migrations here
+  }
+
+  /// Insert user
+  Future<int> insertUser({
+    required String userName,
+    required String email,
+    required String password,
   }) async {
-    final Database db = await database;
-    // Method that insert user
-    await db.insert(kTableName, {
-      kUserName: userName,
-      kEmailId: emailId,
-      kPassword: password,
-    });
+    final db = await database;
+    return db.insert(tableUsers, {
+      columnUserName: userName,
+      columnEmail: email,
+      columnPassword: password,
+    }, conflictAlgorithm: ConflictAlgorithm.abort);
   }
 
-  /// Read/Fetch User
-  Future<List<Map<String, Object?>>> getUsersList() async {
-    final Database db = await database;
-    return await db.query(kTableName);
+  /// Fetch all users
+  Future<List<Map<String, dynamic>>> getAllUsers() async {
+    final db = await database;
+    return db.query(tableUsers);
   }
 
-  /// Update User
-  Future<void> updateUserData({
-    required int? id,
-    required String? userName,
-    required String? emailId,
+  /// Login user
+  Future<Map<String, dynamic>?> loginUser({
+    required String email,
+    required String password,
   }) async {
-    final Database db = await database;
-    await db.update(
-      kTableName,
-      {kUserName: userName, kEmailId: emailId},
-      where: '$kId = ?',
+    final db = await database;
+
+    final result = await db.query(
+      tableUsers,
+      where: '$columnEmail = ? AND $columnPassword = ?',
+      whereArgs: [email, password],
+      limit: 1,
+    );
+
+    return result.isNotEmpty ? result.first : null;
+  }
+
+  /// Update user
+  Future<int> updateUser({
+    required int id,
+    required String userName,
+    required String email,
+  }) async {
+    final db = await database;
+    return db.update(
+      tableUsers,
+      {columnUserName: userName, columnEmail: email},
+      where: '$columnId = ?',
       whereArgs: [id],
     );
   }
 
-  /// Delete User
-  Future<void> deleteUser({required int id}) async {
-    final Database db = await database;
-    await db.delete(kTableName, where: '$kId = ?', whereArgs: [id]);
+  /// Delete user
+  Future<int> deleteUser(int id) async {
+    final db = await database;
+    return db.delete(tableUsers, where: '$columnId = ?', whereArgs: [id]);
+  }
+
+  /// Close database
+  Future<void> closeDatabase() async {
+    final db = _database;
+    if (db != null) {
+      await db.close();
+      _database = null;
+    }
   }
 }

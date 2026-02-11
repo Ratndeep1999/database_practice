@@ -89,12 +89,20 @@ class DatabaseService {
 
     final result = await db.query(
       tableUsers,
-      where: '$columnEmail = ? AND $columnPassword = ?',
-      whereArgs: [email, password],
+      where: '$columnEmail = ?',
+      whereArgs: [email],
       limit: 1,
     );
 
-    return result.isNotEmpty ? result.first : null;
+    if (result.isEmpty) return null;
+
+    final user = result.first;
+
+    if (user[columnPassword] != password) {
+      return null;
+    }
+
+    return user;
   }
 
   /// Update user
@@ -113,7 +121,7 @@ class DatabaseService {
   }
 
   /// Delete user
-  Future<int> deleteUser(int id) async {
+  Future<int> deleteUser({required int id}) async {
     final db = await database;
     return db.delete(tableUsers, where: '$columnId = ?', whereArgs: [id]);
   }

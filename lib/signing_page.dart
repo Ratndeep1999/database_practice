@@ -187,7 +187,7 @@ class _SigningPageState extends State<SigningPage> {
       return;
     }
 
-    await prefs.setLoginValue();
+    await prefs.setLoginValue(value: true);
 
     await _showSnackBar('Login Please Wait....');
     Future.delayed(const Duration(seconds: 1), () {

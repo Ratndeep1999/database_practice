@@ -141,7 +141,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
     setState(() => isSaving = true);
 
     await dbService.updateUser(
-      email: _emailController.text,
+      email: _emailController.text.trim().toLowerCase(),
       userName: _userNameController.text,
       id: widget.id,
     );

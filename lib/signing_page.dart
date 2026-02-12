@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'CustomWidgets/input_text_field_widget.dart';
 import 'CustomWidgets/label_widget.dart';
 import 'Data/Local/database_service.dart';
+import 'Data/Local/shared_preference_service.dart';
 
 class SigningPage extends StatefulWidget {
   const SigningPage({super.key});
@@ -16,6 +17,7 @@ class SigningPage extends StatefulWidget {
 }
 
 class _SigningPageState extends State<SigningPage> {
+  SharedPreferenceService prefs = SharedPreferenceService();
   late final DatabaseService dbService;
 
   /// Controllers
@@ -98,7 +100,7 @@ class _SigningPageState extends State<SigningPage> {
                       validation: _emailValidation,
                       keyboardType: TextInputType.emailAddress,
                       autoFillHints: [AutofillHints.email],
-                      nextFocus: null,
+                      nextFocus: _passwordFocus,
                       focusNode: _emailFocus,
                     ),
                     SizedBox(height: 50.0),
@@ -129,7 +131,6 @@ class _SigningPageState extends State<SigningPage> {
                       keyboardType: TextInputType.visiblePassword,
                       autoFillHints: [AutofillHints.password],
                       focusNode: _passwordFocus,
-                      nextFocus: null,
                     ),
                     SizedBox(height: 60.0),
 
@@ -174,8 +175,8 @@ class _SigningPageState extends State<SigningPage> {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
-    /// Check id Data exist in Database
-    final user = await dbService.loginUser(
+    /// Check is Data exist in Database
+    final Map<String, dynamic>? user = await dbService.loginUser(
       email: _email!,
       password: _password!,
     );
@@ -186,13 +187,15 @@ class _SigningPageState extends State<SigningPage> {
       return;
     }
 
-    await Future.delayed(const Duration(seconds: 1));
-    await _showSnackBar('Login Please Wait....');
+    prefs.setLoginValue();
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const DashboardPage()),
-    );
+    await _showSnackBar('Login Please Wait....');
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const DashboardPage()),
+      );
+    });
   }
 
   /// Navigate to Signup Page
@@ -209,7 +212,7 @@ class _SigningPageState extends State<SigningPage> {
     ).push(MaterialPageRoute(builder: (context) => ForgetPasswordPage()));
   }
 
-  /// Scaffold Messenger
+  /// Async Scaffold Messenger
   Future<void> _showSnackBar(String label) async {
     final controller = ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -220,7 +223,7 @@ class _SigningPageState extends State<SigningPage> {
           fontColor: Colors.white,
         ),
         backgroundColor: Colors.orange,
-        duration: Duration(seconds: 3),
+        duration: Duration(seconds: 1),
       ),
     );
     await controller.closed;

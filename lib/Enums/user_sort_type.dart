@@ -11,9 +11,9 @@ extension UserSortExtension on UserSortType {
   String get orderBy {
     switch (this) {
       case UserSortType.nameAsc:
-        return 'user_name ASC';
+        return 'username ASC';
       case UserSortType.nameDesc:
-        return 'user_name DESC';
+        return 'username DESC';
       case UserSortType.emailAsc:
         return 'email ASC';
       case UserSortType.emailDesc:

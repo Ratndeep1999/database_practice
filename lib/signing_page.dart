@@ -1,6 +1,6 @@
 import 'package:database_practice/CustomWidgets/button_widget.dart';
 import 'package:database_practice/CustomWidgets/clickable_text_widget.dart';
-import 'package:database_practice/forget_password.dart';
+import 'package:database_practice/forget_password_page.dart';
 import 'package:database_practice/signup_page.dart';
 import 'package:database_practice/dashboard_page.dart';
 import 'package:flutter/material.dart';
@@ -206,7 +206,7 @@ class _SigningPageState extends State<SigningPage> {
   void _navigateToForgetPasswordPage() {
     Navigator.of(
       context,
-    ).push(MaterialPageRoute(builder: (context) => ForgetPassword()));
+    ).push(MaterialPageRoute(builder: (context) => ForgetPasswordPage()));
   }
 
   /// Scaffold Messenger

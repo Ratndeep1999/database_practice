@@ -13,55 +13,56 @@ View all registered users on the dashboard
 All user data is stored locally using Sqflite, and the login session is managed using SharedPreferences.
 
 **App Screens / Pages**
-🔹 Splash Screen
-Checks login status using SharedPreferences
+
+🔹 Splash Screen :
+Checks login status using SharedPreferences and
 Redirects user to Login or Dashboard
 
-🔹 Sign In Page
-User login with email & password
+🔹 Sign In Page :
+User login with email & password and
 Credential verification from SQLite
 
-🔹 Sign Up Page
-New user registration
+🔹 Sign Up Page :
+New user registration and
 Stores user details securely in SQLite
 
-🔹 Dashboard Page
-Displays list of all registered users
-Confirms successful authentication
+🔹 Dashboard Page :
+Displays list of all registered users,
+Confirms successful authentication and
 Logout functionality
 
-🔹 Forget Password Page
-Verifies user email before password reset
+🔹 Forget Password Page :
+Verifies user email before password reset and
 
-🔹 Update Password Page
-Allows user to set a new password
+🔹 Update Password Page :
+Allows user to set a new password and
 Updates password in SQLite database
 
 # Key Features
-Proper user authentication flow
-Local database using Sqflite
-Persistent login session using SharedPreferences
-Auto-login & logout handling
+**Proper user authentication flow**
+**Local database using Sqflite**
+**Persistent login session using SharedPreferences**
+**Auto-login & logout handling**
 
 # Secure password update flow
-Dashboard showing registered users
-Clean and user-friendly UI
-Technologies & Packages Used
-Flutter & Dart
-Sqflite (Local Database)
-SharedPreferences (Session Management)
+**Dashboard showing registered users**
+**Clean and user-friendly UI**
+**Technologies & Packages Used**
+**Flutter & Dart**
+**Sqflite (Local Database)**
+**SharedPreferences (Session Management)**
 
 # Learning Outcome
-**This project helped me understand**
-Real-world authentication logic
-Using SQLite for structured local data
-Managing user sessions in Flutter
-Combining database + preferences
-App flow handling using splash screen
+**This project helped me understand : **
+**Real-world authentication logic**
+**Using SQLite for structured local data**
+**Managing user sessions in Flutter**
+**Combining database + preferences**
+**App flow handling using splash screen**
 
 # Feedback
-This project is part of my Flutter learning journey.
-Feedback, suggestions, and improvements are always welcome 🤝
+**This project is part of my Flutter learning journey.**
+**Feedback, suggestions, and improvements are always welcome**
 
 # App Pages
 

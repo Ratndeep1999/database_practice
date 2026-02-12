@@ -75,9 +75,10 @@ class DatabaseService {
   }
 
   /// Fetch all users
-  Future<List<Map<String, dynamic>>> getAllUsers() async {
+  Future<List<Map<String, dynamic>>> getAllUsers({String? orderBy}) async {
     final db = await database;
-    return db.query(tableUsers);
+
+    return await db.query(tableUsers, orderBy: orderBy);
   }
 
   /// Login user

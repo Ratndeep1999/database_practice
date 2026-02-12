@@ -153,11 +153,14 @@ class DatabaseService {
   }
 
   /// Update User Password
-  Future<int> updateUserPassword({required String email}) async {
+  Future<int> updateUserPassword({
+    required String password,
+    required String email,
+  }) async {
     final db = await database;
     return db.update(
       tableUsers,
-      {columnEmail: email},
+      {columnPassword: password},
       where: '$columnEmail = ?',
       whereArgs: [email],
     );

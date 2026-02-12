@@ -16,7 +16,6 @@ class ForgetPasswordPage extends StatefulWidget {
 class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   late final DatabaseService dbService;
   late final TextEditingController _emailController;
-  late final FocusNode _emailFocus;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -24,13 +23,11 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     super.initState();
     dbService = DatabaseService();
     _emailController = TextEditingController();
-    _emailFocus = FocusNode();
   }
 
   @override
   void dispose() {
     _emailController.dispose();
-    _emailFocus.dispose();
     super.dispose();
   }
 
@@ -80,8 +77,6 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       validation: _emailValidation,
                       keyboardType: TextInputType.emailAddress,
                       autoFillHints: [AutofillHints.email],
-                      nextFocus: null,
-                      focusNode: _emailFocus,
                     ),
                     SizedBox(height: 50.0),
 
@@ -124,7 +119,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.orange,
-          content: Text("Check Email Address Again.."),
+          content: Text("Check Email Address Again"),
         ),
       );
       return;

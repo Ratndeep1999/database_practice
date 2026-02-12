@@ -1,5 +1,5 @@
 import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
-import 'package:database_practice/CustomWidgets/list_view_builder_widget.dart';
+import 'package:database_practice/CustomWidgets/users_list_builder_widget.dart';
 import 'package:database_practice/CustomWidgets/user_edit_bottom_sheet.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:database_practice/signing_page.dart';
@@ -74,7 +74,7 @@ class _UsersListState extends State<DashboardPage> {
                   fontColor: Colors.orange,
                 ),
               )
-            : ListViewBuilderWidget(
+            : UsersListBuilderWidget(
                 usersList: usersList,
                 onEdit: _editIconPress,
                 onDelete: _deleteIconPress,

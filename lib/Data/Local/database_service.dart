@@ -135,4 +135,31 @@ class DatabaseService {
       _database = null;
     }
   }
+
+  /// Check user Email
+  Future<Map<String, dynamic>?> checkUserEmail({required String email}) async {
+    final db = await database;
+
+    final result = await db.query(
+      tableUsers,
+      where: '$columnEmail = ?',
+      whereArgs: [email],
+      limit: 1,
+    );
+    final Map<String, Object?>? userEmail = result.isEmpty
+        ? null
+        : result.first;
+    return userEmail;
+  }
+
+  /// Update User Password
+  Future<int> updateUserPassword({required String email}) async {
+    final db = await database;
+    return db.update(
+      tableUsers,
+      {columnEmail: email},
+      where: '$columnEmail = ?',
+      whereArgs: [email],
+    );
+  }
 }

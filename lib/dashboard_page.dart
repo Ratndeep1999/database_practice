@@ -20,7 +20,7 @@ class _UsersListState extends State<DashboardPage> {
 
   /// Users List
   List<Map<String, dynamic>> usersList = [];
-  UserSortType _currentSort = UserSortType.idAsc;
+  UserSortType _currentSort = UserSortType.idDesc;
   bool isLoading = true;
 
   /// Method add that initialize database

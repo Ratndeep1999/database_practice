@@ -19,7 +19,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
 
   late final TextEditingController _passwordController;
   late final TextEditingController _confPasswordController;
-  late final FocusNode _passwordNode;
   late final FocusNode _confPasswordNode;
   bool _isPassVisible = false;
   bool _isBothPassSame = false;
@@ -30,7 +29,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
     super.initState();
     _passwordController = TextEditingController();
     _confPasswordController = TextEditingController();
-    _passwordNode = FocusNode();
     _confPasswordNode = FocusNode();
   }
 
@@ -38,7 +36,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   void dispose() {
     _passwordController.dispose();
     _confPasswordController.dispose();
-    _passwordNode.dispose();
     _confPasswordNode.dispose();
     super.dispose();
   }
@@ -92,7 +89,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                       obscureText: _isPassVisible,
                       hintLabel: 'Enter Your Password',
                       validation: _passwordValidation,
-                      focusNode: _passwordNode,
                       nextFocus: _confPasswordNode,
                       autoFillHints: [AutofillHints.password],
                     ),
@@ -122,7 +118,6 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                       hintLabel: 'Enter Password Again',
                       validation: _confPasswordValidation,
                       focusNode: _confPasswordNode,
-                      nextFocus: null,
                     ),
                     SizedBox(height: 50.0),
 
@@ -174,15 +169,13 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   }
 
   /// Check Password and Conf-Password same or Not
-  void _onChangedConfPassword(String value) {
-    setState(() {
-      _isBothPassSame = (_passwordController.text == value) ? true : false;
-    });
-  }
+  void _onChangedConfPassword(String value) =>
+      setState(() => _isBothPassSame = _passwordController.text == value);
 
   /// Password Validation
   String? _passwordValidation(String? value) {
     String? password = value;
+
     if (password == null || password.isEmpty) return 'Please Enter Password';
     if (password.length < 8) return 'Password must be at least 8 characters';
     if (password.contains(' ')) return 'Space is Not Allowed';

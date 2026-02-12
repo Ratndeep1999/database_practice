@@ -6,6 +6,7 @@ import 'package:database_practice/signing_page.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
 import 'CustomWidgets/users_list_sorting_widget.dart';
+import 'Data/Local/shared_preference_service.dart';
 import 'Enums/user_sort_type.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -16,18 +17,15 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _UsersListState extends State<DashboardPage> {
+  SharedPreferenceService prefs = SharedPreferenceService();
   late final DatabaseService dbService;
 
   /// Users List
   List<Map<String, dynamic>> usersList = [];
+
+  /// Current Sorting
   UserSortType _currentSort = UserSortType.idDesc;
   bool isLoading = true;
-
-  /// Method add that initialize database
-  Future<void> _initDatabase() async {
-    dbService = DatabaseService(); // Object creating in memory
-    await dbService.database; // Database opens only
-  }
 
   @override
   void initState() {
@@ -40,11 +38,20 @@ class _UsersListState extends State<DashboardPage> {
     await _loadUsers();
   }
 
+  /// Method add that initialize database
+  Future<void> _initDatabase() async {
+    dbService = DatabaseService(); // Object creating in memory
+    await dbService.database; // Database opens only
+  }
+
   /// Method to Load Users in List
   Future<void> _loadUsers({UserSortType? sortType}) async {
     _currentSort = sortType ?? _currentSort;
 
-    final users = await dbService.getAllUsers(orderBy: _currentSort.orderBy);
+    /// Get users from database
+    final List<Map<String, dynamic>> users = await dbService.getAllUsers(
+      orderBy: _currentSort.orderBy,
+    );
     if (!mounted) return;
 
     setState(() {
@@ -119,7 +126,8 @@ class _UsersListState extends State<DashboardPage> {
     _loadUsers();
   }
 
-  void _logout() {
+  Future<void> _logout() async {
+    await prefs.clearAll();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const SigningPage()),

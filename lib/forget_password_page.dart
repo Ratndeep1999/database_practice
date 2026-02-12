@@ -131,9 +131,13 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
     }
 
     Future.delayed(const Duration(seconds: 1), () {
-      Navigator.of(
-        context,
-      ).push(MaterialPageRoute(builder: (context) => UpdatePasswordPage()));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => UpdatePasswordPage(
+            email: _emailController.text.trim().toLowerCase(),
+          ),
+        ),
+      );
     });
   }
 

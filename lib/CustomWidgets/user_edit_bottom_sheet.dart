@@ -24,14 +24,11 @@ class UserEditBottomSheet extends StatefulWidget {
 }
 
 class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
-  // Form key
-  final _formKey = GlobalKey<FormState>();
-  // Controllers
+  DatabaseService dbService = DatabaseService();
+
   late final TextEditingController _userNameController;
   late final TextEditingController _emailController;
-  // Database Service Object
-  DatabaseService dbService = DatabaseService();
-  // Variable to show Circular indicator
+  final _formKey = GlobalKey<FormState>();
   bool isSaving = false;
 
   @override
@@ -74,8 +71,10 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
               InputTextFieldWidget(
                 controller: _userNameController,
                 keyboardType: TextInputType.name,
-                isSuffixIcon: false,
+                isSuffixIcon: true,
                 validation: _userNameValidation,
+                suffixIcon: Icons.verified_user,
+                suffixIconColor: Colors.orange,
               ),
               SizedBox(height: 25.0),
 
@@ -90,8 +89,10 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
               InputTextFieldWidget(
                 controller: _emailController,
                 keyboardType: TextInputType.name,
-                isSuffixIcon: false,
+                isSuffixIcon: true,
                 validation: _emailValidation,
+                suffixIcon: Icons.email,
+                suffixIconColor: Colors.orange,
               ),
               SizedBox(height: 50.0),
 
@@ -105,9 +106,12 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                     SizedBox(
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: isSaving ? null : _updateUserDetails,
+                        onPressed: _updateUserDetails,
                         child: isSaving
-                            ? CircularIndicatorWidget(strokeWidth: 2)
+                            ? CircularIndicatorWidget(
+                                strokeAlign: -3,
+                                strokeWidth: 3,
+                              )
                             : Text("Save"),
                       ),
                     ),
@@ -117,7 +121,7 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
                     SizedBox(
                       width: 150,
                       child: ElevatedButton(
-                        onPressed: _cancelUpdate,
+                        onPressed: () => Navigator.pop(context),
                         child: Text("Cancel"),
                       ),
                     ),
@@ -133,27 +137,22 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
 
   /// Method to Update User Details
   Future<void> _updateUserDetails() async {
-    if (_formKey.currentState!.validate()) {
-      /// Database Service Class Method to Update User Data
-      await dbService.updateUserData(
-        id: widget.id,
-        userName: _userNameController.text,
-        emailId: _emailController.text,
-      );
+    if (!_formKey.currentState!.validate()) return;
+    setState(() => isSaving = true);
 
-      /// To Show Circular Indicator When Press on Save
-      setState(() {
-        isSaving = true;
-      });
+    await dbService.updateUser(
+      email: _emailController.text,
+      userName: _userNameController.text,
+      id: widget.id,
+    );
 
-      /// method call to Update User Details in List
+    Future.delayed(Duration(seconds: 1), () {
+      setState(() => isSaving = false);
+
+      /// Method call to Update User Details in List
       widget.onUpdateUser();
-    }
-  }
-
-  /// Method to Cancel
-  void _cancelUpdate() {
-    Navigator.pop(context);
+      Navigator.pop(context);
+    });
   }
 
   /// Method that Validate Updated User Name
@@ -161,7 +160,8 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
     String? userName = value;
     if (userName == null || userName.isEmpty) return "Please Enter Username";
     if (userName.length < 4) return 'Name is Too Short';
-    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName)) return 'Please Enter Letters Only';
+    if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(userName))
+      return 'Please Enter Letters Only';
     return null;
   }
 
@@ -169,7 +169,8 @@ class _UserEditBottomSheetState extends State<UserEditBottomSheet> {
   String? _emailValidation(String? value) {
     String? email = value?.trim().toLowerCase();
     if (email == null || email.isEmpty) return 'Please Enter Email Address';
-    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email)) return "Email address must contain '@' and '.com'";
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$').hasMatch(email))
+      return "Email address must contain '@' and '.com'";
     return null;
   }
 }

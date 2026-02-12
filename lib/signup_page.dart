@@ -15,23 +15,19 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   DatabaseService dbService = DatabaseService();
 
-  /// Controllers
   late final TextEditingController _nameController;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
   late final TextEditingController _confPasswordController;
 
-  /// Focus Nodes
   late final FocusNode _nameNode;
   late final FocusNode _emailNode;
   late final FocusNode _passwordNode;
   late final FocusNode _confPasswordNode;
 
-  /// FormKey
   final _formKey = GlobalKey<FormState>();
-
-  bool _isPasswordVisible = true;
-  bool _isPassConfPassSame = false;
+  bool _isPasswordVisible = false;
+  bool _isBothPassSame = false;
   String? _name;
   String? _email;
   String? _password;
@@ -39,7 +35,6 @@ class _SignupPageState extends State<SignupPage> {
   @override
   void initState() {
     super.initState();
-
     _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
@@ -62,7 +57,6 @@ class _SignupPageState extends State<SignupPage> {
     _emailNode.dispose();
     _passwordNode.dispose();
     _confPasswordNode.dispose();
-
     super.dispose();
   }
 
@@ -107,7 +101,6 @@ class _SignupPageState extends State<SignupPage> {
                       controller: _nameController,
                       keyboardType: TextInputType.name,
                       isSuffixIcon: true,
-                      obscureText: false,
                       hintLabel: 'Enter Your Name',
                       onSaved: (name) => _name = name!.trim(),
                       validation: _userNameValidation,
@@ -132,7 +125,6 @@ class _SignupPageState extends State<SignupPage> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       isSuffixIcon: true,
-                      obscureText: false,
                       suffixIcon: Icons.email,
                       hintLabel: 'Enter Your Email Address',
                       onSaved: (email) => _email = email!.trim().toLowerCase(),
@@ -187,10 +179,10 @@ class _SignupPageState extends State<SignupPage> {
                       controller: _confPasswordController,
                       keyboardType: TextInputType.visiblePassword,
                       isSuffixIcon: true,
-                      suffixIcon: _isPassConfPassSame
+                      suffixIcon: _isBothPassSame
                           ? Icons.check_circle
                           : Icons.cancel,
-                      suffixIconColor: _isPassConfPassSame
+                      suffixIconColor: _isBothPassSame
                           ? Color(0xFF93c743)
                           : Color(0xFFFF4C4C),
                       onChange: _onChangedConfPassword,
@@ -198,7 +190,6 @@ class _SignupPageState extends State<SignupPage> {
                       hintLabel: 'Enter Password Again',
                       validation: _confPasswordValidation,
                       focusNode: _confPasswordNode,
-                      nextFocus: null,
                     ),
                     SizedBox(height: 50.0),
 
@@ -232,11 +223,6 @@ class _SignupPageState extends State<SignupPage> {
     FocusScope.of(context).unfocus();
 
     if (!_formKey.currentState!.validate()) return;
-
-    if (_passwordController.text != _confPasswordController.text) {
-      _showSnackBar('Password and Confirm Password do not match');
-      return;
-    }
     _formKey.currentState!.save();
 
     /// _savedDetails();
@@ -252,26 +238,23 @@ class _SignupPageState extends State<SignupPage> {
     );
 
     if (!mounted) return;
-
+    _showSnackBar("Account successfully created");
     Navigator.pop(context);
   }
 
   /// Check Password and Conf-Password same or Not
-  void _onChangedConfPassword(String value) {
-    setState(
-      () => _isPassConfPassSame = (_passwordController.text == value) ? true : false,);
-  }
+  void _onChangedConfPassword(String value) =>
+      setState(() => _isBothPassSame = _passwordController.text == value);
 
   /// Snack Bar
-  Future<void> _showSnackBar(String label) async {
-    final controller = ScaffoldMessenger.of(context).showSnackBar(
+  void _showSnackBar(String label) {
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(label, style: TextStyle(fontSize: 16)),
         backgroundColor: Colors.orange,
         duration: Duration(seconds: 2),
       ),
     );
-    await controller.closed;
   }
 
   /// UserName Validation
@@ -311,10 +294,11 @@ class _SignupPageState extends State<SignupPage> {
 
   /// Conform Password Validation
   String? _confPasswordValidation(String? confPassword) {
-    if (confPassword == null || confPassword.isEmpty)
-      return 'Please Enter Conform Password';
-    if (_isPassConfPassSame == false)
+    bool isBothPassSame = _passwordController.text != confPassword;
+    if (_isBothPassSame == false || isBothPassSame) {
+      setState(() => _isBothPassSame = false);
       return 'Password And Conform Password is Not Same';
+    }
     return null;
   }
 }

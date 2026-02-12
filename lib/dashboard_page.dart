@@ -5,6 +5,8 @@ import 'package:database_practice/Data/Local/database_service.dart';
 import 'package:database_practice/signing_page.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
+import 'CustomWidgets/users_list_sorting_widget.dart';
+import 'Enums/user_sort_type.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -18,6 +20,7 @@ class _UsersListState extends State<DashboardPage> {
 
   /// Users List
   List<Map<String, dynamic>> usersList = [];
+  UserSortType _currentSort = UserSortType.idAsc;
   bool isLoading = true;
 
   /// Method add that initialize database
@@ -38,8 +41,10 @@ class _UsersListState extends State<DashboardPage> {
   }
 
   /// Method to Load Users in List
-  Future<void> _loadUsers() async {
-    final users = await dbService.getAllUsers();
+  Future<void> _loadUsers({UserSortType? sortType}) async {
+    _currentSort = sortType ?? _currentSort;
+
+    final users = await dbService.getAllUsers(orderBy: _currentSort.orderBy);
     if (!mounted) return;
 
     setState(() {
@@ -52,6 +57,10 @@ class _UsersListState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: UsersListSortingWidget(
+          onSortSelected: (UserSortType sortType) =>
+              _loadUsers(sortType: sortType),
+        ),
         title: LabelWidget(
           label: "Users List",
           fontSize: 30,

@@ -10,10 +10,10 @@ class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({super.key});
 
   @override
-  State<ForgetPasswordPage> createState() => _ForgetPasswordState();
+  State<ForgetPasswordPage> createState() => _ForgetPasswordPageState();
 }
 
-class _ForgetPasswordState extends State<ForgetPasswordPage> {
+class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
   late final DatabaseService dbService;
   late final TextEditingController _emailController;
   late final FocusNode _emailFocus;
@@ -45,6 +45,7 @@ class _ForgetPasswordState extends State<ForgetPasswordPage> {
           fontColor: Colors.black87,
           letterSpacing: 2.0,
         ),
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.orange.shade400,
       ),

@@ -2,27 +2,50 @@ import 'package:database_practice/CustomWidgets/circular_Indicator_widget.dart';
 import 'package:database_practice/CustomWidgets/list_view_builder_widget.dart';
 import 'package:database_practice/CustomWidgets/user_edit_bottom_sheet.dart';
 import 'package:database_practice/Data/Local/database_service.dart';
+import 'package:database_practice/signing_page.dart';
 import 'package:flutter/material.dart';
 import 'CustomWidgets/label_widget.dart';
 
-class UsersList extends StatefulWidget {
-  const UsersList({super.key});
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({super.key});
 
   @override
-  State<UsersList> createState() => _UsersListState();
+  State<DashboardPage> createState() => _UsersListState();
 }
 
-class _UsersListState extends State<UsersList> {
+class _UsersListState extends State<DashboardPage> {
+  late final DatabaseService dbService;
+
   /// Users List
   List<Map<String, dynamic>> usersList = [];
-  late DatabaseService dbService;
   bool isLoading = true;
+
+  /// Method add that initialize database
+  Future<void> _initDatabase() async {
+    dbService = DatabaseService(); // Object creating in memory
+    await dbService.database; // Database opens only
+  }
 
   @override
   void initState() {
     super.initState();
-    _initDatabase();
-    _getUsers();
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    await _initDatabase();
+    await _loadUsers();
+  }
+
+  /// Method to Load Users in List
+  Future<void> _loadUsers() async {
+    final users = await dbService.getAllUsers();
+    if (!mounted) return;
+
+    setState(() {
+      usersList = users;
+      isLoading = false;
+    });
   }
 
   @override
@@ -38,6 +61,7 @@ class _UsersListState extends State<UsersList> {
         ),
         centerTitle: true,
         backgroundColor: Colors.orange.shade400,
+        actions: [IconButton(onPressed: _logout, icon: Icon(Icons.logout))],
       ),
       body: SafeArea(
         child: isLoading
@@ -51,7 +75,7 @@ class _UsersListState extends State<UsersList> {
                 ),
               )
             : ListViewBuilderWidget(
-                users: usersList,
+                usersList: usersList,
                 onEdit: _editIconPress,
                 onDelete: _deleteIconPress,
               ),
@@ -59,48 +83,37 @@ class _UsersListState extends State<UsersList> {
     );
   }
 
-  /// Method add that initialize database
-  Future<void> _initDatabase() async {
-    dbService = DatabaseService();
-    await dbService.database;
-  }
-
-  /// Method to Load Users in List
-  Future<void> _getUsers() async {
-    final users = await dbService.getUsersList();
-    usersList = users;
-    // Disable Loading Indicator
-    isLoading = false;
-    setState(() {});
-  }
-
   /// Edit Icon Functionality
-  Future<void> _editIconPress({int? id, String? userName, String? emailId}) async {
+  Future<void> _editIconPress({
+    required int id,
+    required String userName,
+    required String emailId,
+  }) async {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (c) => UserEditBottomSheet(
-        id: id!,
-        oldName: userName!,
-        oldEmail: emailId!,
-        onUpdateUser: _updateUserData,
+      builder: (context) => UserEditBottomSheet(
+        id: id,
+        oldName: userName,
+        oldEmail: emailId,
+        onUpdateUser: () => _loadUsers(),
       ),
     );
   }
 
   /// Method To Delete User From Database
   Future<void> _deleteIconPress({required int id}) async {
-    /// Database Service Class Method to Delete User Data
     await dbService.deleteUser(id: id);
-    _getUsers();
+    _loadUsers();
   }
 
-  /// Method to Update User Data
-  void _updateUserData() {
-    _getUsers();
-    Navigator.pop(context);
+  void _logout() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const SigningPage()),
+    );
   }
 }

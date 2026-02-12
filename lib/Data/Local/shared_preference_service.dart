@@ -25,9 +25,9 @@ class SharedPreferenceService {
   }
 
   /// Set login value
-  Future<void> setLoginValue() async {
+  Future<void> setLoginValue({required bool value}) async {
     final prefs = await _sharedPrefs;
-    prefs.setBool(_kIsLoggedIn, true);
+    prefs.setBool(_kIsLoggedIn, value);
   }
 
   /// Clear all stored values

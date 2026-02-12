@@ -39,26 +39,26 @@ Allows user to set a new password and
 Updates password in SQLite database
 
 # Key Features
-**Proper user authentication flow**
-**Local database using Sqflite**
-**Persistent login session using SharedPreferences**
-**Auto-login & logout handling**
+**Proper user authentication flow,**
+**Local database using Sqflite,**
+**Persistent login session using SharedPreferences and**
+**Auto-login & logout handling.**
 
 # Secure password update flow
-**Dashboard showing registered users**
-**Clean and user-friendly UI**
-**Technologies & Packages Used**
-**Flutter & Dart**
-**Sqflite (Local Database)**
-**SharedPreferences (Session Management)**
+**Dashboard showing registered users,**
+**Clean and user-friendly UI,**
+**Technologies & Packages Used,**
+**Flutter & Dart,**
+**Sqflite (Local Database) and**
+**SharedPreferences (Session Management).**
 
 # Learning Outcome
 **This project helped me understand :**
-**Real-world authentication logic**
-**Using SQLite for structured local data**
-**Managing user sessions in Flutter**
-**Combining database + preferences**
-**App flow handling using splash screen**
+**Real-world authentication logic,**
+**Using SQLite for structured local data,**
+**Managing user sessions in Flutter,**
+**Combining database + preferences and**
+**App flow handling using splash screen.**
 
 # Feedback
 **This project is part of my Flutter learning journey.**

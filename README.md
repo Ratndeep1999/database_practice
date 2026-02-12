@@ -53,7 +53,7 @@ Updates password in SQLite database
 **SharedPreferences (Session Management)**
 
 # Learning Outcome
-**This project helped me understand : **
+**This project helped me understand :**
 **Real-world authentication logic**
 **Using SQLite for structured local data**
 **Managing user sessions in Flutter**

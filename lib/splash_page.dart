@@ -1,4 +1,5 @@
 import 'package:database_practice/Data/Local/shared_preference_service.dart';
+import 'package:database_practice/dashboard_page.dart';
 import 'package:database_practice/signing_page.dart';
 import 'package:flutter/material.dart';
 
@@ -35,14 +36,13 @@ class SplashPageState extends State<SplashPage> {
   /// Navigate base on value
   void whereToGo() async {
     final loginStatus = await prefs.getLoginStatus;
-    Future.delayed(const Duration(seconds: 3), () {
-      if (loginStatus) {
-        /// ToDo: Navigate to HomePage
-      } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => SigningPage()),
-        );
-      }
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => loginStatus ? DashboardPage() : SigningPage(),
+        ),
+      );
     });
   }
 }

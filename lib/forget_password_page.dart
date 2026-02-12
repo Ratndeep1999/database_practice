@@ -130,15 +130,13 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
       return;
     }
 
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => UpdatePasswordPage(
-            email: _emailController.text.trim().toLowerCase(),
-          ),
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => UpdatePasswordPage(
+          email: _emailController.text.trim().toLowerCase(),
         ),
-      );
-    });
+      ),
+    );
   }
 
   /// Email Validation method

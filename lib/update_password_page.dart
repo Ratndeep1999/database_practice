@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'CustomWidgets/button_widget.dart';
 import 'CustomWidgets/clickable_text_widget.dart';
 import 'CustomWidgets/input_text_field_widget.dart';
@@ -7,7 +6,9 @@ import 'CustomWidgets/label_widget.dart';
 import 'Data/Local/database_service.dart';
 
 class UpdatePasswordPage extends StatefulWidget {
-  const UpdatePasswordPage({super.key});
+  const UpdatePasswordPage({super.key, required this.email});
+
+  final String email;
 
   @override
   State<UpdatePasswordPage> createState() => _UpdatePasswordPageState();
@@ -20,7 +21,7 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
   late final TextEditingController _confPasswordController;
   late final FocusNode _passwordNode;
   late final FocusNode _confPasswordNode;
-  bool _isPassVisible = true;
+  bool _isPassVisible = false;
   bool _isBothPassSame = false;
   final _formKey = GlobalKey<FormState>();
 
@@ -84,11 +85,11 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                       keyboardType: TextInputType.visiblePassword,
                       isSuffixIcon: true,
                       suffixIcon: _isPassVisible
-                          ? Icons.visibility
-                          : Icons.visibility_off,
+                          ? Icons.visibility_off
+                          : Icons.visibility,
                       suffixTap: () =>
                           setState(() => (_isPassVisible = !_isPassVisible)),
-                      obscureText: !_isPassVisible,
+                      obscureText: _isPassVisible,
                       hintLabel: 'Enter Your Password',
                       validation: _passwordValidation,
                       focusNode: _passwordNode,
@@ -126,7 +127,10 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
                     SizedBox(height: 50.0),
 
                     /// Signup Button
-                    ButtonWidget(label: 'Change Password', buttonPress: () {}),
+                    ButtonWidget(
+                      label: 'Change Password',
+                      buttonPress: _updatePassword,
+                    ),
                     SizedBox(height: 30.0),
 
                     /// Back to login
@@ -144,6 +148,29 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
         ),
       ),
     );
+  }
+
+  /// Update Password in Database
+  Future<void> _updatePassword() async {
+    FocusScope.of(context).unfocus();
+
+    if (!_formKey.currentState!.validate()) return;
+
+    await dbService.updateUserPassword(
+      password: _passwordController.text,
+      email: widget.email,
+    );
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Password Updated Successfully"),
+        backgroundColor: Colors.green,
+      ),
+    );
+
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   /// Check Password and Conf-Password same or Not
@@ -171,7 +198,9 @@ class _UpdatePasswordPageState extends State<UpdatePasswordPage> {
 
   /// Conform Password Validation
   String? _confPasswordValidation(String? confPassword) {
-    if (_isBothPassSame == false) {
+    bool isBothPassSame = _passwordController.text != confPassword;
+    if (_isBothPassSame == false || isBothPassSame) {
+      setState(() => _isBothPassSame = false);
       return 'Password And Conform Password is Not Same';
     }
     return null;
